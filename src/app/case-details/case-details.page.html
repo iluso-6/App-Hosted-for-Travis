@@ -1,0 +1,117 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Case Details</ion-title>
+        <button mat-raised-button color="primary" class="toolBtn" slot="end" [hidden]="edit_mode">Add Survey</button>
+        <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="edit_mode" (click)="editForm()">Edit</button>
+        <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="!edit_mode" (click)="edit_mode=!edit_mode; caseForm.dirty ? populateForm() : caseForm.dirty">Cancel</button>
+        <button mat-raised-button color="primary" class="toolBtn" slot="end" type="submit" [hidden]="!edit_mode" (click)="onSubmit();editForm()" [disabled]="!caseForm.dirty">Update</button>
+        <!--[disabled]="!caseForm.valid"-->
+        <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="edit_mode">Delete</button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="true " (opened)="panelOpened(true) " (closed)="panelOpened(false) ">
+            <mat-expansion-panel-header style="background-color:#314051; ">
+                <mat-panel-title style=" color:#fffef4 ">
+                    General Information
+                </mat-panel-title>
+                <mat-panel-description>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-grid-list cols="3">
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
+                        <mat-form-field class="case-number" rows="1 ">
+                            <input matInput placeholder="Case Number" [value]="model.ExternalKey" ngDefaultControl formControlName="case_number">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select ngDefaultControl formControlName="type_selected">
+                                <mat-option *ngFor="let type of casemodel_helper.types" [value]="type">
+                                    {{ type }}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput [matDatepicker]=" picker " placeholder="Start date" formControlName="start_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Status" ngDefaultControl formControlName="case_status">
+                                <mat-option *ngFor="let status of casemodel_helper.statuses " [value]="status">
+                                    {{ status }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </mat-grid-tile>
+                <mat-grid-tile cols="1" rowspan="1">
+                    <form [formGroup]="caseForm">
+                        <mat-form-field>
+                            <mat-select placeholder="Referrals " ngDefaultControl formControlName="case_referral">
+                                <mat-option *ngFor="let referral of casemodel_helper.referrals " [value]="referral ">
+                                    {{ referral }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Payor " ngDefaultControl formControlName="case_payer">
+                                <mat-option *ngFor="let payer of casemodel_helper.payers " [value]="payer ">
+                                    {{ payer }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Treatement Settings " ngDefaultControl formControlName="treatement_settings">
+                                <mat-option *ngFor="let treat of casemodel_helper.treatement_settings " [value]="treat ">
+                                    {{ treat }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select placeholder="Level Of Care " ngDefaultControl formControlName="level_of_care">
+                                <mat-option *ngFor="let level of casemodel_helper.level_of_care " [value]="level">
+                                    {{ level }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </mat-grid-tile>
+
+
+                <mat-grid-tile cols="1" rowspan="1">
+                    <form [formGroup]="caseForm">
+
+                        <mat-form-field appearance="outline ">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput placeholder="Some client details here ... " [value]="model.Description" ngDefaultControl formControlName="case_description"></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Tags " ngDefaultControl formControlName="case_tags">
+                                <mat-option *ngFor="let tag of casemodel_helper.tags " [value]="tag ">
+                                    {{ tag }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="case-number ">
+                            <input matInput placeholder="Existing Client " [value]="model.Description" ngDefaultControl formControlName="existing_client">
+                        </mat-form-field>
+                    </form>
+                </mat-grid-tile>
+
+
+            </mat-grid-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ion-content>

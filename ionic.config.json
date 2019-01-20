@@ -1,5 +1,8 @@
 {
   "name": "angular-material",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "647de621"
 }

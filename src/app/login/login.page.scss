@@ -1,0 +1,28 @@
+$offwhite: #fffff8;
+$aceCyan: #43C4B2;
+mat-card {
+    width: 350px;
+    height: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    margin-bottom: auto;
+    background-color: $offwhite;
+}
+
+mat-card-content {
+    margin-top: 30px;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+mat-card-actions {
+    margin-top: 30px;
+}
+
+.loginBtn {
+    background-color: $aceCyan;
+    color: $offwhite;
+}

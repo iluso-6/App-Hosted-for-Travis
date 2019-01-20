@@ -1,0 +1,32 @@
+$headerRowBg: #314051;
+$fontColor: #fffef4;
+$aceCyan: #43C4B2;
+$rowColor:#F5F5F5;
+$col-sm:40pt;
+$col-md:60pt;
+$col-lg:100pt;
+.example-container {
+    height: 400px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    th {
+        background-color: $headerRowBg; // rgb(244, 255, 253);
+        color: $fontColor;
+    }
+    .mat-row:nth-child(even) {
+        background-color: #F5F5F5;
+    }
+    .mat-row:nth-child(odd) {}
+    .mat-row .mat-column-ExternalKey {
+        max-width: $col-lg;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-right: 20pt;
+        color: $aceCyan;
+        cursor: pointer;
+    }
+}

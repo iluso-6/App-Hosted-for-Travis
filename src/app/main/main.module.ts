@@ -4,20 +4,25 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { MainPage } from './main.page';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   imports: [
+    MatTableModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: MainPage
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [MainPage]
 })
-export class HomePageModule {}
+export class MainPageModule {
+
+}
