@@ -78,6 +78,10 @@ goToCaseDetailById(case_Id) {
 
 
 ionViewWillEnter() {
+  if (this.httpRequestService.getDataIsAltered() === true) {
+    console.log(' getDataIsAltered()');
+    this.getEpisodes();
+  }
   console.log(' ionViewWillEnter');
 }
 

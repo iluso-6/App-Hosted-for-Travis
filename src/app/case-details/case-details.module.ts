@@ -12,7 +12,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { CaseHelper } from './case_model/CaseHelper';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
+import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 
 
 
@@ -33,12 +34,15 @@ const routes: Routes = [
     MatSelectModule,
     MatInputModule,
     MatExpansionModule,
+    MatIconModule,
     CommonModule,
     FormsModule,
     IonicModule,
+    MatDialogModule,
     RouterModule.forChild(routes)
   ],
+  entryComponents: [WarningDialogComponent],
   providers: [CaseHelper],
-  declarations: [CaseDetailsPage]
+  declarations: [CaseDetailsPage, WarningDialogComponent]
 })
 export class CaseDetailsPageModule {}

@@ -1,0 +1,8 @@
+<div class="popup">
+    <div class="wrapper">
+        <ion-icon name="warning" class="icon" size="large"></ion-icon>
+        <h6><b>Are you sure you want to permanently delete this record?</b></h6>
+        <button mat-raised-button color="basic" class="cancelBtn" slot="start" (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="warn" class="deleteBtn" slot="end" [mat-dialog-close]="true">Delete</button>
+    </div>
+</div>

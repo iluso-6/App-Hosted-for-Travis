@@ -40,7 +40,7 @@ export class CaseDetailsPage implements OnInit {
   ) {
     this.casemodel_helper = this.casehelper;
     this.model = new CaseModel();
-    this.caseForm = this.createFormGroup();
+    this.contactForm = this.createFormGroupWithBuilderAndModel(formBuilder);
   }
 
   // panel tracker if needed
@@ -54,9 +54,21 @@ export class CaseDetailsPage implements OnInit {
   model: CaseModel;
   // form Group declaritor
   caseForm: FormGroup;
-  EpisodeStatus: FormGroupName;
-  EpisodeType: FormGroupName;
+  formControl = new FormControl();
   case_tags = new FormControl();
+  EpisodeStatus: FormGroupName;
+  // field name delaration
+  ExternalKey: FormControlName;
+  FORM_EpisodeType: FormControlName;
+  FORM_EpisodeStatus: FormControlName;
+  StartDate: FormControlName;
+  case_referral: FormControlName;
+  case_payer: FormControlName;
+  treatement_settings: FormControlName;
+  level_of_care: FormControlName;
+  Description: FormControlName;
+  existing_client: FormControlName;
+  Name: FormControlName;
   disabled = true;
   // Episode.Id for api referencing
   caseNumber: string;
@@ -64,32 +76,33 @@ export class CaseDetailsPage implements OnInit {
   ngOnInit() {
     this.caseNumber = this.route.snapshot.paramMap.get('case_num');
     this.getEpisodeById(this.caseNumber);
+    this.initForm();
   }
 
+  createFormGroupWithBuilderAndModel(formBuilder: FormBuilder) {
+    return formBuilder.group(new CaseModel());
+  }
 
-  createFormGroup() {
-    return new FormGroup({
-      EpisodeType: new FormGroup({
-        Name: new FormControl(),
-        CreateDate: new FormControl(),
-        LastEditDate: new FormControl(),
-        CreateUser: new FormControl()
+  initForm() {
+    this.caseForm = this.formBuilder.group({
+      ExternalKey: [''],
+      FORM_EpisodeType: [''],
+      StartDate: [''],
+      FORM_EpisodeStatus: [''],
+      case_referral: [''],
+      case_payer: [''],
+      treatement_settings: [''],
+      level_of_care: [''],
+      Description: [''],
+      case_tags: [''],
+      existing_client: [''],
+      EpisodeStatus: this.formBuilder.group({
+        Id: null,
+        Name: [''],
+        CreateDate: Date,
+        LastEditDate: Date,
+        CreateUser: Date,
       }),
-      EpisodeStatus: new FormGroup({
-        Name: new FormControl(),
-        CreateDate: new FormControl(),
-        LastEditDate: new FormControl(),
-        CreateUser: new FormControl()
-      }),
-      ExternalKey: new FormControl(),
-      StartDate: new FormControl(),
-      case_referral: new FormControl(),
-      case_payer:  new FormControl(),
-      treatement_settings: new FormControl(),
-      level_of_care:  new FormControl(),
-      Description:  new FormControl(),
-      case_tags:  new FormControl(),
-      existing_client: new FormControl(),
     });
   }
 
@@ -99,9 +112,11 @@ export class CaseDetailsPage implements OnInit {
     const model = this.caseModel;
     this.caseForm = this.formBuilder.group({
       Id: model.Id,
-      EpisodeStatusId: model.EpisodeStatusId,
+      EpisodeStatusId: 1,
       ExternalKey: model.ExternalKey,
+      FORM_EpisodeType: model.EpisodeType.Name,
       StartDate: model.StartDate,
+      FORM_EpisodeStatus: model.EpisodeStatus.Name,
       case_referral: 'Ask about this',
       case_payer: 'Ask about this',
       treatement_settings: 'Ask about this',
@@ -109,8 +124,8 @@ export class CaseDetailsPage implements OnInit {
       Description: model.Description,
       case_tags: [] = [''],
       existing_client: 'Ask about this',
-      EpisodeTypeId: model.EpisodeTypeId,
-      EpisodeOwner: model.EpisodeOwner,
+      EpisodeTypeId: 1,
+      EpisodeOwner: '',
       EpisodeStatus: this.formBuilder.group({
         Id: model.EpisodeStatus.Id,
         Name: model.EpisodeStatus.Name,
@@ -118,34 +133,34 @@ export class CaseDetailsPage implements OnInit {
         LastEditDate: model.EpisodeStatus.LastEditDate,
         CreateUser: model.EpisodeStatus.CreateUser,
       }),
-      EpisodeType: this.formBuilder.group({
-        Name: model.EpisodeType.Name,
+      EpisodeType: {
+        Name: this.FORM_EpisodeType,
         Id: model.EpisodeType.Id,
         CreateDate: model.EpisodeType.CreateDate,
         LastEditDate: model.EpisodeType.LastEditDate,
         CreateUser: model.EpisodeType.CreateUser
-      }),
+      },
       CliniciansNames: model.CliniciansNames,
       ClientsNames: model.ClientsNames,
       Status: model.Status,
       LastSessionDate: model.LastSessionDate,
       Type: model.Type,
       Alert: model.Alert,
-      ClientsIds: [model.ClientsIds],
+      ClientsIds: model.ClientsIds,
       CloseDate: model.CloseDate,
       ClosedReason: model.ClosedReason,
-      CollateralRatersIds: [model.CollateralRatersIds],
+      CollateralRatersIds: model.CollateralRatersIds,
       CreateDate: model.CreateDate,
       DiagnosisCode: model.DiagnosisCode,
-      EpisodeCustomFields: [model.EpisodeCustomFields],
+      EpisodeCustomFields: model.EpisodeCustomFields,
       EpisodeIndicator: model.EpisodeIndicator,
       Inactive: model.Inactive,
       LastEditDate: model.LastEditDate,
       LastEditUser: model.LastEditUser,
       OwnerId: model.OwnerId,
       SummaryStatus: model.SummaryStatus,
-      TagsIds: [model.TagsIds],
-      UsersIds: [model.UsersIds]
+      TagsIds: model.TagsIds,
+      UsersIds: model.UsersIds
     });
   }
 
@@ -187,6 +202,7 @@ export class CaseDetailsPage implements OnInit {
       this.delete_button_clicked = result;
       if (this.delete_button_clicked) {
         //    this.deleteEpisode(Id);
+        this.httpRequestService.setDataIsAltered(true);
       }
     });
   }
@@ -209,7 +225,6 @@ export class CaseDetailsPage implements OnInit {
         res => {
           loading.dismiss();
           console.log(res);
-          this.httpRequestService.setDataIsAltered(true);
         },
         err => {
           console.log(err);
@@ -227,7 +242,6 @@ export class CaseDetailsPage implements OnInit {
       res => {
         loading.dismiss();
         console.log(res);
-        this.httpRequestService.setDataIsAltered(true);
       },
       err => {
         console.log(err);
@@ -245,7 +259,6 @@ export class CaseDetailsPage implements OnInit {
       res => {
         loading.dismiss();
         console.log(res);
-        this.httpRequestService.setDataIsAltered(true);
       },
       err => {
         console.log(err);

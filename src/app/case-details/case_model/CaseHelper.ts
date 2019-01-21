@@ -1,11 +1,6 @@
-import { Tile } from './tile-interface';
+
 export class CaseHelper {
-    tiles: Tile[] = [
-        { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
-        { text: 'Two', cols: 1, rows: 1, color: 'lightgreen' },
-        { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-        { text: 'Four', cols: 1, rows: 1, color: '#DDBDF1' },
-    ];
+
     types = [
         'Individual',
         'Couple',
@@ -18,33 +13,59 @@ export class CaseHelper {
         'Closed Unplanned'
     ];
     referrals = [
-        'Individual',
-        'Couple',
-        'Family',
-        'Group'
+        'Clinician',
+        'SocialWorker',
+        'IntegrationAdvisor',
+        'School',
+        'Fritidshjem',
+        'Kindergarted',
+        'Nursery',
+        'Doctor',
+        'OtherInstitutionPleaseSpecify'
     ];
     payers = [
-        'Individual',
-        'Couple',
-        'Family',
-        'Group'
+        'HSOClackamasCo',
+        'HSOMultnomah',
+        'HSOWashingtonCo',
+        'HSOFeeForService',
+        'Medicare',
+        'CommercialInsurance',
+        'SelfPay',
+        'ClachamasGeneralFund',
+        'MultnomahTreatmentFund',
+        'WashingtonGeneralFund',
+        'Other'
     ];
     treatement_settings = [
-        'Individual',
-        'Couple',
-        'Family',
-        'Group'
+        'Outpatient',
+        'IntensiveOutpatient',
+        'ACT',
+        'PDTS',
+        'SubAcute',
+        'PRTS'
     ];
     level_of_care = [
-        'Individual',
-        'Couple',
-        'Family',
-        'Group'
+        'AdultA1',
+        'AdultA2',
+        'AdultB1',
+        'AdultB2',
+        'AdultC1',
+        'AdultC2',
+        'AdultD',
+        'ChildA',
+        'ChildB',
+        'ChildC',
+        'ChildD'
     ];
-    tags = [
-        'Individual',
-        'Couple',
-        'Family',
-        'Group'
+    tags: string[] = [
+        'CategoryA',
+        'CategoryB',
+        'CategoryC',
+        'CategoryD',
+        'CategoryE',
+        'CategoryF',
+        'Addiction-Cat',
+        'Family-Cat',
+        'BCBSVT',
     ];
 }

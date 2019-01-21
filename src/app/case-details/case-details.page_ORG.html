@@ -28,8 +28,8 @@
                             <input matInput placeholder="Case Number" [value]="ExternalKey" ngDefaultControl formControlName="ExternalKey">
                         </mat-form-field>
 
-                        <mat-form-field formGroupName="EpisodeType">
-                            <mat-select placeholder="Type" ngDefaultControl formControlName="Name">
+                        <mat-form-field formGroupName="EpisodeStatus">
+                            <mat-select ngDefaultControl formControlName="EpisodeStatus_Name" color="accent">
                                 <mat-option *ngFor="let type of casemodel_helper.types" [value]="type">
                                     {{ type }}
                                 </mat-option>
@@ -43,8 +43,8 @@
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
 
-                        <mat-form-field formGroupName="EpisodeStatus">
-                            <mat-select placeholder="Status" ngDefaultControl formControlName="Name">
+                        <mat-form-field>
+                            <mat-select placeholder="Status" ngDefaultControl formControlName="FORM_EpisodeStatus">
                                 <mat-option *ngFor="let status of casemodel_helper.statuses " [value]="status">
                                     {{ status }}
                                 </mat-option>
@@ -71,14 +71,14 @@
                         </mat-form-field>
 
                         <mat-form-field>
-                            <mat-select placeholder="Treatement Settings" ngDefaultControl formControlName="treatement_settings">
+                            <mat-select placeholder="Treatement Settings " ngDefaultControl formControlName="treatement_settings">
                                 <mat-option *ngFor="let treat of casemodel_helper.treatement_settings " [value]="treat ">
                                     {{ treat }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field>
-                            <mat-select placeholder="Level Of Care" ngDefaultControl formControlName="level_of_care">
+                            <mat-select placeholder="Level Of Care " ngDefaultControl formControlName="level_of_care">
                                 <mat-option *ngFor="let level of casemodel_helper.level_of_care " [value]="level">
                                     {{ level }}
                                 </mat-option>

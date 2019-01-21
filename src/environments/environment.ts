@@ -14,7 +14,10 @@ export const environment = {
   GET_SURVEY_PDF_FILE: 'api/ReportApi/ExportSurveyReportToPdf',
   GET_CLIENT_ID: 'AccountApi/GetClientIdByAccessToken',
   GET_EPISODE: 'EpisodeApi/Get',
-  GET_CLIENT_ORS_REPORT: 'ClientApi/GetClientsORSReport'
+  GET_CLIENT_ORS_REPORT: 'ClientApi/GetClientsORSReport',
+  PUT_EPISODE: 'EpisodeApi/Put',
+  POST_EPISODE: 'EpisodeApi/Post',
+  DELETE_EPISODE: 'EpisodeApi/Delete/'
 };
 
 /*

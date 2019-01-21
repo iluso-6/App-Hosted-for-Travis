@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpRequestService } from '../service/http-request.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { environment } from '../../environments/environment';
-import { EpisodeModel } from '../models/EpisodeModel';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

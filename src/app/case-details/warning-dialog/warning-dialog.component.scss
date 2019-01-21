@@ -1,0 +1,32 @@
+$offwhite: #fffff8;
+$aceCyan: #43C4B2;
+.popup {
+    padding: 1px;
+    width: 300px;
+    background-color: $offwhite;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.deleteBtn {
+    float: right;
+    margin-right: 30px;
+}
+
+.cancelBtn {
+    float: left;
+    margin-left: 30px;
+    background-color: $aceCyan;
+    color: $offwhite;
+}
+
+.icon {
+    color: red;
+    text-align: center
+}
+
+h6 {
+    padding: 10px;
+}

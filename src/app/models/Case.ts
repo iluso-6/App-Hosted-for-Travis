@@ -1,4 +1,4 @@
-export class CaseModel {
+export class Case {
   Id: number;
   EpisodeStatusId: number;
   EpisodeTypeId: number;
@@ -44,5 +44,8 @@ export class CaseModel {
   SummaryStatus: { Message: string; StatusType: number };
   TagsIds: [];
   UsersIds: [];
-  constructor() {}
+
+  constructor(data) {
+    Object.assign(this, data);
+  }
 }
