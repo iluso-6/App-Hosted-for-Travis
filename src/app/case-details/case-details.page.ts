@@ -162,7 +162,7 @@ export class CaseDetailsPage implements OnInit {
           console.log(result);
           loading.dismiss();
           this.model = result;
-          this.caseModel = new Case(result);
+          this.caseModel = result;
           this.populateForm();
         },
         err => {
