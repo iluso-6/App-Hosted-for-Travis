@@ -5,8 +5,10 @@
 export const environment = {
   production: false,
   TOKEN: 'token',
-  BASE_URL: 'https://openfitapi.groupnos.com/api/',
-  LOGIN_URL: 'https://openfitapi.groupnos.com/token',
+ // BASE_URL: 'https://openfitapi.groupnos.com/api/',
+//  LOGIN_URL: 'https://openfitapi.groupnos.com/token',
+  BASE_URL: 'http://localhost:8103/api/',
+  LOGIN_URL: 'http://localhost:8103/token',
   CLIENTAPI_GET: 'ClientApi/Get',
   USERAPI_GET: 'UserApi/Get',
   SESSIONAPI_GET: 'SessionApi/Get',

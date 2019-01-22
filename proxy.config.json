@@ -1,0 +1,15 @@
+{
+
+    "/token": {
+        "target": "https://openfitapi.groupnos.com",
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/api/*": {
+        "target": "https://openfitapi.groupnos.com",
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

@@ -54,7 +54,7 @@ export class HttpRequestService {
 
   getStoredToken() {
     this.storage.get('access_token').then(token_res => {
-      if (typeof token_res === 'undefined') {
+      if (token_res && typeof token_res === 'undefined') {
         console.log('undefined access_token');
       } else {
         this.access_token = token_res['access_token'];

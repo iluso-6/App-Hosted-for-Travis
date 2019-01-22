@@ -4,5 +4,11 @@
     "cordova": {}
   },
   "type": "angular",
-  "id": "647de621"
+  "id": "c89b822e",
+  "proxies": [
+    {
+      "path": "/api/*",
+      "proxyUrl": "https://openfitapi.groupnos.com"
+    }
+  ]
 }
