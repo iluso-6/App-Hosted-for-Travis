@@ -21,9 +21,11 @@ const ELEMENT_DATA: DataElement[] = [
 export class MainPage implements OnInit {
   episodes: EpisodeModel;
 
-constructor(private route: ActivatedRoute,  public platform: Platform, private navCtrl: NavController,
+constructor(private route: ActivatedRoute,
+  public platform: Platform, private navCtrl: NavController,
    private httpRequestService: HttpRequestService,
    public loadingController: LoadingController) {
+    this.httpRequestService.getStoredToken();
 }
 
 
@@ -35,7 +37,7 @@ constructor(private route: ActivatedRoute,  public platform: Platform, private n
   dataSource = ELEMENT_DATA;
 
   ngOnInit() {
-  this.getEpisodes();
+
   }
 
   async getEpisodes() {
@@ -63,26 +65,23 @@ constructor(private route: ActivatedRoute,  public platform: Platform, private n
       if (this.dataSource.hasOwnProperty(key)) {
         if (this.dataSource[key].ExternalKey === case_num) {
           const object = this.dataSource[key];
-          this.goToCaseDetailById(object.Id);
+          this.goToCaseDetailById(object.ExternalKey);
           console.log(object.Id);
         }
       }
   }
   }
 
-goToCaseDetailById(case_Id) {
-  console.log('goToCaseDetail ' + case_Id );
-  this.navCtrl.navigateForward('/case-details/' + case_Id);
+goToCaseDetailById(case_ExternalKey) {
+  console.log('goToCaseDetail ' + case_ExternalKey );
+  this.navCtrl.navigateForward('/case-details/' + case_ExternalKey);
 }
 
 
 
 ionViewWillEnter() {
-  if (this.httpRequestService.getDataIsAltered() === true) {
-    console.log(' getDataIsAltered()');
-    this.getEpisodes();
-  }
   console.log(' ionViewWillEnter');
+  this.getEpisodes();
 }
 
 ionViewDidEnter() {

@@ -15,7 +15,12 @@ import { CaseHelper } from './case_model/CaseHelper';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from '@progress/kendo-angular-charts';
 
+
+import 'hammerjs';
 
 const routes: Routes = [
   {
@@ -35,6 +40,7 @@ const routes: Routes = [
     MatInputModule,
     MatExpansionModule,
     MatIconModule,
+    ChartsModule,
     CommonModule,
     FormsModule,
     IonicModule,

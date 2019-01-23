@@ -31,6 +31,9 @@
                             }
                         ],
                         "styles": [{
+                                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+                            },
+                            {
                                 "input": "src/theme/custom-theme.scss"
                             },
                             {
@@ -68,8 +71,7 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "app:build",
-                        "proxyConfig": "proxy.config.json"
+                        "browserTarget": "app:build"
                     },
                     "configurations": {
                         "production": {
@@ -94,8 +96,12 @@
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
                         "styles": [{
-                            "input": "src/custom-theme.scss"
-                        }],
+                                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+                            },
+                            {
+                                "input": "src/custom-theme.scss"
+                            }
+                        ],
                         "scripts": [],
                         "assets": [{
                                 "glob": "favicon.ico",
@@ -119,8 +125,13 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**"]
+                        "tsConfig": [
+                            "src/tsconfig.app.json",
+                            "src/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
                     }
                 },
                 "ionic-cordova-build": {
@@ -169,7 +180,9 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": "e2e/tsconfig.e2e.json",
-                        "exclude": ["**/node_modules/**"]
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
                     }
                 }
             }

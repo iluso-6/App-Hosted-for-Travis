@@ -1,14 +1,8 @@
 {
-  "name": "angular-material",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular",
-  "id": "c89b822e",
-  "proxies": [
-    {
-      "path": "/api/*",
-      "proxyUrl": "https://openfitapi.groupnos.com"
-    }
-  ]
+    "name": "angular-material",
+    "integrations": {
+        "cordova": {}
+    },
+    "type": "angular",
+    "id": "c89b822e"
 }

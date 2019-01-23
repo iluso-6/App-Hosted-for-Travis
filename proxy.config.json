@@ -1,13 +1,13 @@
 {
 
     "/token": {
-        "target": "https://openfitapi.groupnos.com",
+        "target": "https://openfitapi-docs.azurewebsites.net",
         "changeOrigin": true,
         "secure": false,
         "logLevel": "debug"
     },
     "/api/*": {
-        "target": "https://openfitapi.groupnos.com",
+        "target": "https://openfitapi-docs.azurewebsites.net",
         "changeOrigin": true,
         "secure": false,
         "logLevel": "debug"

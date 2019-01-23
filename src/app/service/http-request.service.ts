@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
 import { EpisodeModel } from '../models/EpisodeModel';
@@ -7,8 +7,12 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+ })
 };
+
+
 
 const sample_put_body = {'Id': 138303, 'ExternalKey': 'cafac4a8-dc21-41da-b4e9-9e0573e83990', 'EpisodeTypeId': 1,
 'EpisodeType': {'Id': 1, 'Name': 'Individual'},
@@ -54,11 +58,12 @@ export class HttpRequestService {
 
   getStoredToken() {
     this.storage.get('access_token').then(token_res => {
-      if (token_res && typeof token_res === 'undefined') {
-        console.log('undefined access_token');
-      } else {
+
+     if (token_res && token_res['access_token'] != null) {
         this.access_token = token_res['access_token'];
         console.log(this.access_token);
+      } else {
+        console.log('No access token stored');
       }
     });
   }
@@ -74,10 +79,18 @@ export class HttpRequestService {
   }
 
   getAccessToken(user, pass): Observable<any> {
-    const body_data =
-      'grant_type=password&username=' + `${user}` + '&password=' + `${pass}`;
+    const newhttpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+     })
+    };
 
-    return this.http.post(environment.LOGIN_URL, body_data, httpOptions).pipe(
+    const params = new HttpParams()
+    .append('username', user)
+    .append('password', pass)
+    .append('grant_type', 'password');
+
+    return this.http.post(environment.LOGIN_URL, params, newhttpOptions).pipe(
       tap(res => console.log('fetched token')),
       catchError(this.handleError('getAccessToken', []))
     );

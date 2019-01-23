@@ -14,6 +14,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpRequestService } from './service/http-request.service';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,7 +28,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserModule, IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule,
-    IonicStorageModule.forRoot()],
+    IonicStorageModule.forRoot(),
+    ChartsModule],
   providers: [
     HttpRequestService,
     StatusBar,
