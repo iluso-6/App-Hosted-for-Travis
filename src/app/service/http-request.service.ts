@@ -26,8 +26,6 @@ const sample_put_body = {'Id': 138303, 'ExternalKey': 'cafac4a8-dc21-41da-b4e9-9
   providedIn: 'root'
 })
 export class HttpRequestService {
-  // used to keep track of data changes regarding refreshing page data globally passed variable
-  data_is_altered = false;
 
   access_token: string;
 
@@ -40,15 +38,6 @@ export class HttpRequestService {
     return this.episode;
   }
 
-  setDataIsAltered(state) {
-    this.data_is_altered = state;
-  }
-
-  getDataIsAltered() {
-    const temp = this.data_is_altered;
-    this.data_is_altered = false;
-    return temp;
-  }
 
   constructor(private http: HttpClient, private storage: Storage) {
     console.log('service constructor');
@@ -62,6 +51,7 @@ export class HttpRequestService {
      if (token_res && token_res['access_token'] != null) {
         this.access_token = token_res['access_token'];
         console.log(this.access_token);
+        return (this.access_token);
       } else {
         console.log('No access token stored');
       }

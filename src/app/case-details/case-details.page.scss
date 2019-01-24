@@ -1,31 +1,21 @@
 $headerRowBg: #314051;
 $headerRowBglight: #3d4f64;
 $fontColor: #fffef4;
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
-
-.case-number {
-    min-width: 150px;
-    max-width: 500px;
-    width: 30%;
-}
-
-.example-full-height {
-    min-height: 50px;
-}
-
-.grid-test {
-    margin-top: 30px;
+.slides_container {
+    margin: 5px;
 }
 
 .toolBtn {
-    margin: 4px;
+    margin: 5px;
 }
 
-.slides_container {
-    margin-top: 10px;
-    bottom: inherit;
+ion-slide {
+    height: 300px;
+    google-chart {
+        border: 11px solid $headerRowBglight;
+        border-radius: 25px;
+        overflow: hidden;
+        margin: 0 auto;
+        display: block;
+    }
 }

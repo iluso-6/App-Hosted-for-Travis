@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CaseHelper } from './case_model/CaseHelper';
 import { environment } from 'src/environments/environment';
 import { HttpRequestService } from '../service/http-request.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +15,10 @@ import { CaseModel } from '../models/CaseModel';
 import { MatDialog } from '@angular/material';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { Case } from '../models/Case';
+import { ViewChild } from '@angular/core';
+import { GoogleChartComponent } from 'angular-google-charts';
+
+
 
 
 @Component({
@@ -23,31 +27,38 @@ import { Case } from '../models/Case';
   styleUrls: ['./case-details.page.scss']
 })
 export class CaseDetailsPage implements OnInit {
-  public events: string[] = [];
-  public series: any[] = [{
-          name: 'India',
-          data: [3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855]
-      }, {
-          name: 'Russian Federation',
-          data: [4.743, 7.295, 7.175, 6.376, 8.153, 8.535, 5.247, -7.832, 4.3, 4.3]
-      }, {
-          name: 'Germany',
-          data: [0.010, -0.375, 1.161, 0.684, 3.7, 3.269, 1.083, -5.127, 3.690, 2.995]
-      }, {
-          name: 'World',
-          data: [1.988, 2.733, 3.994, 3.464, 4.001, 3.939, 1.333, -2.245, 4.339, 2.727]
-      }];
+@ViewChild('chart') chart: GoogleChartComponent;
 
-  public categories: number[] = [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011];
-  delete_button_clicked = false;
+// warning dialog button states
+ delete_button_clicked = false;
+ cancel_button_clicked = false;
+
   caseModel: Case;
   contactForm: FormGroup;
 
+  myData = [
+    ['London', 8136000],
+    ['New York', 8538000],
+    ['Paris', 2244000],
+    ['Berlin', 3470000],
+    ['Kairo', 19500000]
+  ];
+
+  myOptions = {
+    width: 600,
+    height: 250,
+    title: 'ORS & SRS',
+    animation: {
+      duration: 1000,
+      easing: 'out',
+    },
+  };
 
 
   constructor(
     public loadingController: LoadingController,
     private httpRequestService: HttpRequestService,
+    public navCtrl: NavController,
     private casehelper: CaseHelper,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -56,6 +67,7 @@ export class CaseDetailsPage implements OnInit {
     this.casemodel_helper = this.casehelper;
     this.model = new CaseModel();
     this.caseForm = this.createFormGroup();
+    console.log('contructor');
   }
 
   // panel tracker if needed
@@ -180,6 +192,7 @@ export class CaseDetailsPage implements OnInit {
           this.model = result;
           this.caseModel = result;
           this.populateForm();
+
         },
         err => {
           console.log(err);
@@ -188,7 +201,8 @@ export class CaseDetailsPage implements OnInit {
       );
   }
 
-  ionViewWillEnter() {}
+  ionViewWillEnter() {
+  }
 
   editForm() {
     this.edit_mode = !this.edit_mode;
@@ -203,7 +217,12 @@ export class CaseDetailsPage implements OnInit {
       this.delete_button_clicked = result;
       if (this.delete_button_clicked) {
         //    this.deleteEpisode(Id);
+        console.log('delete');
+      } else {
+        console.log('cancel');
+
       }
+      this.edit_mode = false;
     });
   }
 
@@ -225,7 +244,6 @@ export class CaseDetailsPage implements OnInit {
         res => {
           loading.dismiss();
           console.log(res);
-          this.httpRequestService.setDataIsAltered(true);
         },
         err => {
           console.log(err);
@@ -243,7 +261,6 @@ export class CaseDetailsPage implements OnInit {
       res => {
         loading.dismiss();
         console.log(res);
-        this.httpRequestService.setDataIsAltered(true);
       },
       err => {
         console.log(err);
@@ -261,7 +278,6 @@ export class CaseDetailsPage implements OnInit {
       res => {
         loading.dismiss();
         console.log(res);
-        this.httpRequestService.setDataIsAltered(true);
       },
       err => {
         console.log(err);
@@ -273,6 +289,21 @@ export class CaseDetailsPage implements OnInit {
     //    ********************************    END API OPERATIONS    ************************
 
   panelOpened(open) {
+    console.log(open);
     this.panel_opened = open;
+    if (open) {
+      this.myOptions.width = 600;
+      this.myOptions.height = 250;
+    } else {
+      this.myOptions.width = 900;
+      this.myOptions.height = 400;
+    }
+
+
+
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack(['/home']);
   }
 }

@@ -14,7 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpRequestService } from './service/http-request.service';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ChartsModule } from '@progress/kendo-angular-charts';
+import { GoogleChartsModule } from 'angular-google-charts';
 import 'hammerjs';
 
 
@@ -28,8 +28,8 @@ import 'hammerjs';
     HttpClientModule,
     BrowserModule, IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule,
-    IonicStorageModule.forRoot(),
-    ChartsModule],
+    GoogleChartsModule.forRoot(),
+    IonicStorageModule.forRoot()],
   providers: [
     HttpRequestService,
     StatusBar,

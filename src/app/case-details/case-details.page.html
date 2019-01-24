@@ -7,20 +7,22 @@
         <button mat-raised-button color="primary" class="toolBtn" slot="end" type="submit" [hidden]="!edit_mode" (click)="onSubmit();editForm()" [disabled]="!caseForm.dirty">Update</button>
         <!--[disabled]="!caseForm.valid"-->
         <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="!edit_mode" (click)="deleteForm()">Delete</button>
+
+        <button mat-raised-button color="light" slot="start" (click)="goBack()" class="toolBtn">
+            <ion-icon name="arrow-round-back" size="large"></ion-icon>
+        </button>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <mat-accordion>
-        <mat-expansion-panel [expanded]="true " (opened)="panelOpened(true) " (closed)="panelOpened(false) ">
+        <mat-expansion-panel [expanded]="true " (opened)="panelOpened(true)" (closed)="panelOpened(false)">
             <mat-expansion-panel-header style="background-color:#314051; ">
                 <mat-panel-title style=" color:#fffef4 ">
                     General Information
                 </mat-panel-title>
-                <mat-panel-description>
-                </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-grid-list cols="3" rows="4">
+            <mat-grid-list cols="3" rows="4" style="margin:0px">
                 <mat-grid-tile colspan="1">
                     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
 
@@ -113,51 +115,28 @@
             </mat-grid-list>
         </mat-expansion-panel>
     </mat-accordion>
-</ion-content>
-<ion-content>
+
     <ion-slides class="slides_container">
-        <ion-slide>
-            <kendo-chart width="600px;">
-                <kendo-chart-title text="1"></kendo-chart-title>
-                <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-                <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
-                <kendo-chart-series>
-                    <kendo-chart-series-item *ngFor="let item of series" type="line" style="smooth" [data]="item.data" [name]="item.name">
-                    </kendo-chart-series-item>
-                </kendo-chart-series>
-            </kendo-chart>
-            <kendo-chart width="600px;">
-                <kendo-chart-title text="1"></kendo-chart-title>
-                <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-                <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
-                <kendo-chart-series>
-                    <kendo-chart-series-item *ngFor="let item of series" type="line" style="smooth" [data]="item.data" [name]="item.name">
-                    </kendo-chart-series-item>
-                </kendo-chart-series>
-            </kendo-chart>
+        <ion-slide class="slide">
+            <google-chart #chart type="AreaChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
+
 
         </ion-slide>
-        <ion-slide>
-            <kendo-chart>
-                <kendo-chart-title text="2"></kendo-chart-title>
-                <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-                <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
-                <kendo-chart-series>
-                    <kendo-chart-series-item *ngFor="let item of series" type="line" style="smooth" [data]="item.data" [name]="item.name">
-                    </kendo-chart-series-item>
-                </kendo-chart-series>
-            </kendo-chart>
+        <ion-slide class="slide">
+
+            <google-chart type="LineChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
+
         </ion-slide>
-        <ion-slide>
-            <kendo-chart>
-                <kendo-chart-title text="3"></kendo-chart-title>
-                <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-                <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
-                <kendo-chart-series>
-                    <kendo-chart-series-item *ngFor="let item of series" type="line" style="smooth" [data]="item.data" [name]="item.name">
-                    </kendo-chart-series-item>
-                </kendo-chart-series>
-            </kendo-chart>
+        <ion-slide class="slide">
+
+            <google-chart type="PieChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
+
         </ion-slide>
+        <ion-slide class="slide">
+
+            <google-chart type="ColumnChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
+
+        </ion-slide>
+
     </ion-slides>
 </ion-content>
