@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
     const pass = this.User.password.trim();
 
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Logging in ...'
     });
     await loading.present();
     await this.httpRequestService.getAccessToken(user, pass).subscribe(

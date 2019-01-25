@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaseHelper } from './case_model/CaseHelper';
 import { environment } from 'src/environments/environment';
@@ -16,9 +16,8 @@ import { MatDialog } from '@angular/material';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { Case } from '../models/Case';
 import { ViewChild } from '@angular/core';
-import { GoogleChartComponent } from 'angular-google-charts';
-
-
+import { Platform } from '@ionic/angular';
+import { ChartsComponent } from './charts/charts.component';
 
 
 @Component({
@@ -27,33 +26,6 @@ import { GoogleChartComponent } from 'angular-google-charts';
   styleUrls: ['./case-details.page.scss']
 })
 export class CaseDetailsPage implements OnInit {
-@ViewChild('chart') chart: GoogleChartComponent;
-
-// warning dialog button states
- delete_button_clicked = false;
- cancel_button_clicked = false;
-
-  caseModel: Case;
-  contactForm: FormGroup;
-
-  myData = [
-    ['London', 8136000],
-    ['New York', 8538000],
-    ['Paris', 2244000],
-    ['Berlin', 3470000],
-    ['Kairo', 19500000]
-  ];
-
-  myOptions = {
-    width: 600,
-    height: 250,
-    title: 'ORS & SRS',
-    animation: {
-      duration: 1000,
-      easing: 'out',
-    },
-  };
-
 
   constructor(
     public loadingController: LoadingController,
@@ -62,16 +34,37 @@ export class CaseDetailsPage implements OnInit {
     private casehelper: CaseHelper,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    public matdialog: MatDialog
+    public matdialog: MatDialog,
+    private platform: Platform,
   ) {
     this.casemodel_helper = this.casehelper;
     this.model = new CaseModel();
     this.caseForm = this.createFormGroup();
     console.log('contructor');
   }
+  @ViewChild(ChartsComponent) chartsComponent: ChartsComponent;
+
+
+
+
+  // warning dialog button states
+  delete_button_clicked = false;
+  cancel_button_clicked = false;
+
+  caseModel: Case;
+  contactForm: FormGroup;
 
   // panel tracker if needed
-  panel_opened: boolean;
+  panel_opened = true;
+  chartWidth = Math.round(this.platform.width() / 1.5);
+  chartHeigth = Math.round(this.platform.height() / 3);
+  chartHeigth_Margin = 200;
+  chartWidth_Margin = 90;
+  all_chart_options = {
+    width: this.chartWidth,
+    height: this.chartHeigth
+  };
+
   edit_mode = false;
 
   //  values for inputs and dropdown menus held in /case_model/CaseHelper.ts
@@ -87,6 +80,8 @@ export class CaseDetailsPage implements OnInit {
   disabled = true;
   // Episode.Id for api referencing
   caseNumber: string;
+  master = 'Master';
+  // data = new google.visualization.DataTable(document.getElementById('chart'));
 
   ngOnInit() {
     this.caseNumber = this.route.snapshot.paramMap.get('case_num');
@@ -94,7 +89,15 @@ export class CaseDetailsPage implements OnInit {
     this.getEpisodeById(this.caseNumber);
   }
 
+  // boolean from charts component if chart is expanded or not
+  chartMessage($event) {
+    this.panel_opened = $event;
+ //   console.log(this.panel_opened);
+  }
 
+  onPanelStateChanged() {
+    console.log('onPanelStateChanged');
+  }
   createFormGroup() {
     return new FormGroup({
       EpisodeType: new FormGroup({
@@ -112,19 +115,20 @@ export class CaseDetailsPage implements OnInit {
       ExternalKey: new FormControl(),
       StartDate: new FormControl(),
       case_referral: new FormControl(),
-      case_payer:  new FormControl(),
+      case_payer: new FormControl(),
       treatement_settings: new FormControl(),
-      level_of_care:  new FormControl(),
-      Description:  new FormControl(),
-      case_tags:  new FormControl(),
-      existing_client: new FormControl(),
+      level_of_care: new FormControl(),
+      Description: new FormControl(),
+      case_tags: new FormControl(),
+      existing_client: new FormControl()
     });
   }
 
-
   populateForm() {
+
     console.log('populateForm');
     const model = this.caseModel;
+    this.chartsComponent.loadChartData(model);
     this.caseForm = this.formBuilder.group({
       Id: model.Id,
       EpisodeStatusId: model.EpisodeStatusId,
@@ -144,7 +148,7 @@ export class CaseDetailsPage implements OnInit {
         Name: model.EpisodeStatus.Name,
         CreateDate: model.EpisodeStatus.CreateDate,
         LastEditDate: model.EpisodeStatus.LastEditDate,
-        CreateUser: model.EpisodeStatus.CreateUser,
+        CreateUser: model.EpisodeStatus.CreateUser
       }),
       EpisodeType: this.formBuilder.group({
         Name: model.EpisodeType.Name,
@@ -177,10 +181,12 @@ export class CaseDetailsPage implements OnInit {
     });
   }
 
+
+
   async getEpisodeById(case_num) {
     const case_ExternalKey = case_num;
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Getting case details ...'
     });
     await loading.present();
     await this.httpRequestService
@@ -192,7 +198,6 @@ export class CaseDetailsPage implements OnInit {
           this.model = result;
           this.caseModel = result;
           this.populateForm();
-
         },
         err => {
           console.log(err);
@@ -201,8 +206,7 @@ export class CaseDetailsPage implements OnInit {
       );
   }
 
-  ionViewWillEnter() {
-  }
+  ionViewWillEnter() {}
 
   editForm() {
     this.edit_mode = !this.edit_mode;
@@ -220,7 +224,6 @@ export class CaseDetailsPage implements OnInit {
         console.log('delete');
       } else {
         console.log('cancel');
-
       }
       this.edit_mode = false;
     });
@@ -235,7 +238,7 @@ export class CaseDetailsPage implements OnInit {
   //    ********************************    CRUD API OPERATIONS    ************************
   async postApiData() {
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Creating case'
     });
     await loading.present();
     await this.httpRequestService
@@ -254,24 +257,26 @@ export class CaseDetailsPage implements OnInit {
 
   async putApiData(body) {
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Updating case ...'
     });
     await loading.present();
-    await this.httpRequestService.putApiData(environment.PUT_EPISODE, body).subscribe(
-      res => {
-        loading.dismiss();
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-        loading.dismiss();
-      }
-    );
+    await this.httpRequestService
+      .putApiData(environment.PUT_EPISODE, body)
+      .subscribe(
+        res => {
+          loading.dismiss();
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+          loading.dismiss();
+        }
+      );
   }
 
   async deleteEpisode(id) {
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Deleteing case ...'
     });
     await loading.present();
     await this.httpRequestService.deleteApiData(id).subscribe(
@@ -286,22 +291,7 @@ export class CaseDetailsPage implements OnInit {
     );
   }
 
-    //    ********************************    END API OPERATIONS    ************************
-
-  panelOpened(open) {
-    console.log(open);
-    this.panel_opened = open;
-    if (open) {
-      this.myOptions.width = 600;
-      this.myOptions.height = 250;
-    } else {
-      this.myOptions.width = 900;
-      this.myOptions.height = 400;
-    }
-
-
-
-  }
+  //    ********************************    END API OPERATIONS    ************************
 
   goBack() {
     this.navCtrl.navigateBack(['/home']);

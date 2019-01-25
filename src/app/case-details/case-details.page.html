@@ -16,14 +16,14 @@
 
 <ion-content padding>
     <mat-accordion>
-        <mat-expansion-panel [expanded]="true " (opened)="panelOpened(true)" (closed)="panelOpened(false)">
+        <mat-expansion-panel [expanded]="panel_opened" (click)='onPanelStateChanged(); panel_opened=!panel_opened' collapsedHeight="*" expandedHeight="*">
             <mat-expansion-panel-header style="background-color:#314051; ">
                 <mat-panel-title style=" color:#fffef4 ">
                     General Information
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-grid-list cols="3" rows="4" style="margin:0px">
-                <mat-grid-tile colspan="1">
+            <mat-grid-list cols="3" rows="4" no-padding>
+                <mat-grid-tile colspan="1" lg-colspan="1">
                     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
 
                         <mat-form-field class="case-number" rows="1 ">
@@ -115,28 +115,5 @@
             </mat-grid-list>
         </mat-expansion-panel>
     </mat-accordion>
-
-    <ion-slides class="slides_container">
-        <ion-slide class="slide">
-            <google-chart #chart type="AreaChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
-
-
-        </ion-slide>
-        <ion-slide class="slide">
-
-            <google-chart type="LineChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
-
-        </ion-slide>
-        <ion-slide class="slide">
-
-            <google-chart type="PieChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
-
-        </ion-slide>
-        <ion-slide class="slide">
-
-            <google-chart type="ColumnChart" [data]="myData" [options]="myOptions" dynamicResize="true"></google-chart>
-
-        </ion-slide>
-
-    </ion-slides>
+    <app-charts (messageEvent)="chartMessage($event)" [panelState]="panel_opened"> chart div here ..</app-charts>
 </ion-content>

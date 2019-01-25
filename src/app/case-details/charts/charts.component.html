@@ -1,0 +1,15 @@
+<ion-slides class="slides_container" pager="true">
+    <ion-slide class="slide">
+        <!-- Say {{ panelState }}-->
+        <google-chart [data]="ORS_SRS" (click)="closePanel()"></google-chart>
+    </ion-slide>
+    <ion-slide class="slide">
+        <google-chart [data]="ProtectionSurvey" (click)="closePanel()"></google-chart>
+    </ion-slide>
+    <ion-slide class="slide">
+        <google-chart [data]="IndicatorsSurvey" (click)="closePanel()"></google-chart>
+    </ion-slide>
+    <ion-slide class="slide">
+        <google-chart [data]="DrugUseSurvey" (click)="closePanel()"></google-chart>
+    </ion-slide>
+</ion-slides>

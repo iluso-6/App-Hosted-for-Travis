@@ -43,7 +43,7 @@ constructor(private route: ActivatedRoute,
   async getEpisodes() {
 
     const loading = await this.loadingController.create({
-      message: 'Loading...'
+      message: 'Getting cases ...'
     });
     await loading.present();
     await this.httpRequestService.getApiData( environment.GET_EPISODE).subscribe(

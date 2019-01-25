@@ -19,9 +19,12 @@ export const environment = {
   GET_CLIENT_ORS_REPORT: 'ClientApi/GetClientsORSReport',
   PUT_EPISODE: 'EpisodeApi/Put',
   POST_EPISODE: 'EpisodeApi/Post',
+  GET_ORS_ANSWERS: 'ClientApi/GetORSAnswers',
   DELETE_EPISODE: 'EpisodeApi/Delete/'
 };
 
+
+// https://openfitapi-falke.azurewebsites.net/api/ClientApi/GetORSAnswers?languageCode=US&clientId=136925&episodeId=134741&includeCollateralData=false
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

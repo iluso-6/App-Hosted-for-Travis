@@ -14,10 +14,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { CaseHelper } from './case_model/CaseHelper';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
-import { GoogleChartsModule } from 'angular-google-charts';
-
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 import 'hammerjs';
+import { ChartsComponent } from './charts/charts.component';
 
 const routes: Routes = [
   {
@@ -41,11 +41,11 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     MatDialogModule,
-    GoogleChartsModule,
+    Ng2GoogleChartsModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [WarningDialogComponent],
-  providers: [CaseHelper],
-  declarations: [CaseDetailsPage, WarningDialogComponent]
+  providers: [CaseHelper, {provide: ChartsComponent, useClass: ChartsComponent}],
+  declarations: [CaseDetailsPage, WarningDialogComponent, ChartsComponent]
 })
 export class CaseDetailsPageModule {}

@@ -14,9 +14,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpRequestService } from './service/http-request.service';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { GoogleChartsModule } from 'angular-google-charts';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import 'hammerjs';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +27,7 @@ import 'hammerjs';
     HttpClientModule,
     BrowserModule, IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule,
-    GoogleChartsModule.forRoot(),
+    Ng2GoogleChartsModule,
     IonicStorageModule.forRoot()],
   providers: [
     HttpRequestService,
