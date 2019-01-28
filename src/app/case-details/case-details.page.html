@@ -20,6 +20,7 @@
     <mat-expansion-panel [expanded]="panel_opened" (click)='onPanelStateChanged(panel_opened);' hideToggle="true">
         <mat-expansion-panel-header style="background-color:#314051; ">
             <mat-panel-title style=" color:#fffef4 ">
+                General Information
                 <mat-icon *ngIf="panel_opened" class="expand_icons">unfold_less</mat-icon>
                 <mat-icon *ngIf="!panel_opened" class="expand_icons">unfold_more</mat-icon>
             </mat-panel-title>

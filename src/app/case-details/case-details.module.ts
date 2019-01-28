@@ -18,7 +18,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 import 'hammerjs';
 import { ChartsComponent } from './charts/charts.component';
-import { Service, ChartsServiceService } from './charts/charts-service.service';
+import { ChartsServiceService } from './charts/charts-service.service';
 const routes: Routes = [
   {
     path: '',
@@ -47,7 +47,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   entryComponents: [WarningDialogComponent],
-  providers: [ChartsServiceService, CaseHelper, Service, {provide: ChartsComponent, useClass: ChartsComponent}],
+  providers: [ChartsServiceService, CaseHelper, {provide: ChartsComponent, useClass: ChartsComponent}],
   declarations: [CaseDetailsPage, WarningDialogComponent, ChartsComponent]
 })
 export class CaseDetailsPageModule {}

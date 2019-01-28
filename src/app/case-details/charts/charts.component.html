@@ -1,14 +1,10 @@
 <ion-slides class="slides_container" pager="true">
 
     <ion-slide class="slide">
-        <dx-chart [dataSource]="dataSource" [size]="size_option" (click)="chartClicked() " [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
-            <dxo-common-series-settings #commonSeries argumentField="AppointmentDate" type="stackedarea">
-            </dxo-common-series-settings>
-
+        <dx-chart [dataSource]="dataSource" [size]="size_option" [commonSeriesSettings]="commonSeriesSettings" (click)="chartClicked() " [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
 
             <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="area"></dxi-series>
             <dxi-series valueField="NTrajectory" name="Negative Treatment" color="#F86363" type="area"></dxi-series>
-
             <dxi-series valueField="OrsScore" name="ORS Score" type="line"></dxi-series>
             <dxi-value-axis>
                 <dxi-constant-line [value]="cutOff" dashStyle="dash" color="grey" width="1">
@@ -21,6 +17,7 @@
                 </dxo-label>
                 <dxo-tick [visible]="false"></dxo-tick>
             </dxo-argument-axis>
+            <!-- <dxo-export [enabled]="true"></dxo-export>-->
             <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
             </dxo-legend>
 

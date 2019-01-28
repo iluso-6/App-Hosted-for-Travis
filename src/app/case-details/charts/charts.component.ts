@@ -9,9 +9,8 @@ import { Platform, LoadingController, IonContent } from '@ionic/angular';
 import { Case } from 'src/app/models/Case';
 import { HttpRequestService } from 'src/app/service/http-request.service';
 import { environment } from 'src/environments/environment';
-import { Service, ChartsServiceService } from './charts-service.service';
+import { ChartsServiceService } from './charts-service.service';
 import { DxChartComponent } from 'devextreme-angular';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-charts',
@@ -46,6 +45,15 @@ export class ChartsComponent implements OnInit {
       this.screenHeigth = this.platform.height();
     });
   }
+
+  commonSeriesSettings = {
+      argumentField: 'AppointmentDate',
+      point: {
+          visible: false
+      },
+      type: 'area'
+
+  };
   ors_data: any;
   dataSource: JSON;
   chartsService: ChartsServiceService;
@@ -218,10 +226,13 @@ export class ChartsComponent implements OnInit {
 
   public async loadChartData(model: Case) {
     console.log('loadChartData()');
-    this.get_ORS_SRS_Data(model);
+   this.get_ORS_SRS_Data(model);
+
+
   }
 
   public async get_ORS_SRS_Data(modelData) {
+
     const model = modelData;
     const clientId = model.ClientsIds;
     const episodeId = model.Id;

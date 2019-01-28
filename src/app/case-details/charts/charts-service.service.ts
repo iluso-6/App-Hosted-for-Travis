@@ -52,6 +52,7 @@ export class ChartsServiceService {
         result => {
           console.log(result);
           loading.dismiss();
+
           this.cutOff = result[0].ClinicalCutOff.Value;
           const NEstOrsPost = result[0].Estimates.NEstOrsPost;
           const EstOrsPost = result[0].Estimates.EstOrsPost;
@@ -66,6 +67,7 @@ export class ChartsServiceService {
       });
           this.dataSource = temp;
           console.log(this.dataSource);
+          return Promise.resolve(temp);
         },
         err => {
           console.log(err);

@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
         console.log(result);
         this.storeAccessToken(result);
         loading.dismiss();
-        this.goToLoggedInPage();
+       this.goToLoggedInPage();
       },
       err => {
         console.log(err);
@@ -51,6 +51,7 @@ export class LoginPage implements OnInit {
       }
     );
   }
+
 
   storeAccessToken(token) {
     this.storage.set('access_token', token);

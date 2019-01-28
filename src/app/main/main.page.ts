@@ -20,6 +20,7 @@ const ELEMENT_DATA: DataElement[] = [
 
 export class MainPage implements OnInit {
   episodes: EpisodeModel;
+  current_user: string;
 
 constructor(private route: ActivatedRoute,
   public platform: Platform, private navCtrl: NavController,
@@ -40,6 +41,8 @@ constructor(private route: ActivatedRoute,
 
   }
 
+
+
   async getEpisodes() {
 
     const loading = await this.loadingController.create({
@@ -59,6 +62,25 @@ constructor(private route: ActivatedRoute,
     );
   }
 
+    async getSignedInUser() {
+
+    const loading = await this.loadingController.create({
+      message: 'Getting signed in user ...'
+    });
+    await loading.present();
+    await this.httpRequestService.getApiData( environment.USERAPI_GET).subscribe(
+      result => {
+        console.log(result);
+        loading.dismiss();
+       this.current_user = result[0].FullName;
+        this.getEpisodes();
+      },
+      err => {
+        console.log(err);
+        loading.dismiss();
+      }
+    );
+  }
 
   getCurrentEpisode(case_num) {
     for (const key in this.dataSource) {
@@ -81,7 +103,8 @@ goToCaseDetailById(case_ExternalKey) {
 
 ionViewWillEnter() {
   console.log(' ionViewWillEnter');
-  this.getEpisodes();
+  this.getSignedInUser();
+
 }
 
 ionViewDidEnter() {
