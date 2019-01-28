@@ -15,10 +15,10 @@ import { CaseHelper } from './case_model/CaseHelper';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-
+import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 import 'hammerjs';
 import { ChartsComponent } from './charts/charts.component';
-
+import { Service, ChartsServiceService } from './charts/charts-service.service';
 const routes: Routes = [
   {
     path: '',
@@ -42,10 +42,12 @@ const routes: Routes = [
     IonicModule,
     MatDialogModule,
     Ng2GoogleChartsModule,
+    DxChartModule,
+    DxSelectBoxModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [WarningDialogComponent],
-  providers: [CaseHelper, {provide: ChartsComponent, useClass: ChartsComponent}],
+  providers: [ChartsServiceService, CaseHelper, Service, {provide: ChartsComponent, useClass: ChartsComponent}],
   declarations: [CaseDetailsPage, WarningDialogComponent, ChartsComponent]
 })
 export class CaseDetailsPageModule {}

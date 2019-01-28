@@ -1,25 +1,23 @@
 $headerRowBg: #314051;
 $headerRowBglight: #3d4f64;
 $fontColor: #fffef4;
-.slides_container {
-    top: 10px;
-    padding-bottom: 10px;
-}
-
 .toolBtn {
     margin: 5px;
 }
 
-ion-slides {
-    bottom: 10px;
+app-charts {
+    //  padding: 1px;
 }
 
-ion-slide {
-    google-chart {
-        border: 11px solid $headerRowBglight;
-        border-radius: 25px;
-        overflow: hidden;
-        margin: 0 auto;
-        display: block;
+mat-panel-title {
+    justify-content: space-between;
+    align-items: center;
+    .expand_icons {
+        position: absolute;
+        right: 50px;
     }
+}
+
+.panel_wrapper {
+    min-height: 900px;
 }

@@ -1,8 +1,8 @@
 $offwhite: #fffff8;
 $aceCyan: #43C4B2;
 mat-card {
-    width: 350px;
-    height: 400px;
+    width: 80%;
+    height: 80%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -12,10 +12,17 @@ mat-card {
 }
 
 mat-card-content {
-    margin-top: 30px;
-    padding: 20px;
-    width: 100%;
+    margin-top: 10%;
     text-align: center;
+    height: 100%;
+    .example-full-width {
+        font-size: 16pt;
+        width: 100%;
+        padding: 2%;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+    }
 }
 
 mat-card-actions {

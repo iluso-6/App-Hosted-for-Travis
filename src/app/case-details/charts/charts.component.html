@@ -1,15 +1,41 @@
 <ion-slides class="slides_container" pager="true">
+
     <ion-slide class="slide">
-        <!-- Say {{ panelState }}-->
-        <google-chart [data]="ORS_SRS" (click)="closePanel()"></google-chart>
+        <dx-chart [dataSource]="dataSource" [size]="size_option" (click)="chartClicked() " [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
+            <dxo-common-series-settings #commonSeries argumentField="AppointmentDate" type="stackedarea">
+            </dxo-common-series-settings>
+
+
+            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="area"></dxi-series>
+            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="#F86363" type="area"></dxi-series>
+
+            <dxi-series valueField="OrsScore" name="ORS Score" type="line"></dxi-series>
+            <dxi-value-axis>
+                <dxi-constant-line [value]="cutOff" dashStyle="dash" color="grey" width="1">
+                    <dxo-label [visible]="false">
+                    </dxo-label>
+                </dxi-constant-line>
+            </dxi-value-axis>
+            <dxo-argument-axis [valueMarginsEnabled]="false">
+                <dxo-label [visible]="false">
+                </dxo-label>
+                <dxo-tick [visible]="false"></dxo-tick>
+            </dxo-argument-axis>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+            </dxo-legend>
+
+        </dx-chart>
+
+
     </ion-slide>
     <ion-slide class="slide">
-        <google-chart [data]="ProtectionSurvey" (click)="closePanel()"></google-chart>
+        <google-chart [data]="ORS_SRS " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
     </ion-slide>
-    <ion-slide class="slide">
-        <google-chart [data]="IndicatorsSurvey" (click)="closePanel()"></google-chart>
+    <ion-slide class="slide ">
+        <google-chart [data]="IndicatorsSurvey " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
     </ion-slide>
-    <ion-slide class="slide">
-        <google-chart [data]="DrugUseSurvey" (click)="closePanel()"></google-chart>
+    <ion-slide class="slide ">
+        <google-chart [data]="DrugUseSurvey " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
     </ion-slide>
+
 </ion-slides>

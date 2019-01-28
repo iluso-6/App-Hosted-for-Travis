@@ -8,7 +8,6 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
-  FormControlName,
   FormGroupName
 } from '@angular/forms';
 import { CaseModel } from '../models/CaseModel';
@@ -26,6 +25,8 @@ import { ChartsComponent } from './charts/charts.component';
   styleUrls: ['./case-details.page.scss']
 })
 export class CaseDetailsPage implements OnInit {
+  screenWidth: number;
+  screenHeigth: number;
 
   constructor(
     public loadingController: LoadingController,
@@ -35,15 +36,27 @@ export class CaseDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public matdialog: MatDialog,
-    private platform: Platform,
+    private platform: Platform
   ) {
     this.casemodel_helper = this.casehelper;
     this.model = new CaseModel();
     this.caseForm = this.createFormGroup();
     console.log('contructor');
-  }
+    platform.ready().then(() => {
+
+      console.log('platform.ready()'  );
+      this.screenWidth = this.platform.width();
+      this.screenHeigth = this.platform.height();
+  });
+}
+
   @ViewChild(ChartsComponent) chartsComponent: ChartsComponent;
 
+
+  // tslint:disable-next-line:quotemark
+  expansion_panel_width = "'190px'";
+  // tslint:disable-next-line:quotemark
+  expansion_panel_height = "'300px'";
 
 
 
@@ -80,22 +93,30 @@ export class CaseDetailsPage implements OnInit {
   disabled = true;
   // Episode.Id for api referencing
   caseNumber: string;
-  master = 'Master';
-  // data = new google.visualization.DataTable(document.getElementById('chart'));
+
+  message: boolean;
 
   ngOnInit() {
     this.caseNumber = this.route.snapshot.paramMap.get('case_num');
     console.log(this.caseNumber);
     this.getEpisodeById(this.caseNumber);
+
   }
 
-  // boolean from charts component if chart is expanded or not
-  chartMessage($event) {
+ receiveChartClickedMessage($event) {
+    this.message = $event;
     this.panel_opened = $event;
- //   console.log(this.panel_opened);
+    console.log('receiveMessage ' + $event );
   }
 
-  onPanelStateChanged() {
+  chartClicked() {
+    console.log('chartClicked ');
+  }
+
+
+  onPanelStateChanged(state: boolean) {
+    this.panel_opened = !this.panel_opened;
+    this.chartsComponent.closePanel(this.panel_opened);
     console.log('onPanelStateChanged');
   }
   createFormGroup() {
@@ -128,6 +149,7 @@ export class CaseDetailsPage implements OnInit {
 
     console.log('populateForm');
     const model = this.caseModel;
+    console.log(model);
     this.chartsComponent.loadChartData(model);
     this.caseForm = this.formBuilder.group({
       Id: model.Id,

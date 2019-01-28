@@ -1,6 +1,7 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <ion-header>
     <ion-toolbar>
-        <ion-title>Case Details</ion-title>
+        <ion-title>Case Details </ion-title>
         <button mat-raised-button color="primary" class="toolBtn" slot="end" [hidden]="edit_mode">Add Survey</button>
         <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="edit_mode" (click)="editForm()">Edit</button>
         <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="!edit_mode" (click)="edit_mode=!edit_mode; caseForm.dirty ? populateForm() : caseForm.dirty">Cancel</button>
@@ -9,111 +10,111 @@
         <button mat-raised-button color="warn" class="toolBtn" slot="end" [hidden]="!edit_mode" (click)="deleteForm()">Delete</button>
 
         <button mat-raised-button color="light" slot="start" (click)="goBack()" class="toolBtn">
-            <ion-icon name="arrow-round-back" size="large"></ion-icon>
+            
         </button>
+
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-    <mat-accordion>
-        <mat-expansion-panel [expanded]="panel_opened" (click)='onPanelStateChanged(); panel_opened=!panel_opened' collapsedHeight="*" expandedHeight="*">
-            <mat-expansion-panel-header style="background-color:#314051; ">
-                <mat-panel-title style=" color:#fffef4 ">
-                    General Information
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-grid-list cols="3" rows="4" no-padding>
-                <mat-grid-tile colspan="1" lg-colspan="1">
-                    <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
+<ion-content padding class="panel_wrapper">
+    <mat-expansion-panel [expanded]="panel_opened" (click)='onPanelStateChanged(panel_opened);' hideToggle="true">
+        <mat-expansion-panel-header style="background-color:#314051; ">
+            <mat-panel-title style=" color:#fffef4 ">
+                <mat-icon *ngIf="panel_opened" class="expand_icons">unfold_less</mat-icon>
+                <mat-icon *ngIf="!panel_opened" class="expand_icons">unfold_more</mat-icon>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="3" rows="4" no-padding>
+            <mat-grid-tile colspan="1" lg-colspan="1">
+                <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
 
-                        <mat-form-field class="case-number" rows="1 ">
-                            <input matInput placeholder="Case Number" [value]="ExternalKey" ngDefaultControl formControlName="ExternalKey">
-                        </mat-form-field>
+                    <mat-form-field class="case-number" rows="1 ">
+                        <input matInput placeholder="Case Number" [value]="ExternalKey" ngDefaultControl formControlName="ExternalKey">
+                    </mat-form-field>
 
-                        <mat-form-field formGroupName="EpisodeType">
-                            <mat-select placeholder="Type" ngDefaultControl formControlName="Name">
-                                <mat-option *ngFor="let type of casemodel_helper.types" [value]="type">
-                                    {{ type }}
-                                </mat-option>
-                            </mat-select>
+                    <mat-form-field formGroupName="EpisodeType">
+                        <mat-select placeholder="Type" ngDefaultControl formControlName="Name">
+                            <mat-option *ngFor="let type of casemodel_helper.types" [value]="type">
+                                {{ type }}
+                            </mat-option>
+                        </mat-select>
 
-                        </mat-form-field>
+                    </mat-form-field>
 
-                        <mat-form-field>
-                            <input matInput [matDatepicker]=" picker " placeholder="Start date" formControlName="StartDate">
-                            <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
+                    <mat-form-field>
+                        <input matInput [matDatepicker]=" picker " placeholder="Start date" formControlName="StartDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
 
-                        <mat-form-field formGroupName="EpisodeStatus">
-                            <mat-select placeholder="Status" ngDefaultControl formControlName="Name">
-                                <mat-option *ngFor="let status of casemodel_helper.statuses " [value]="status">
-                                    {{ status }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </form>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="1">
-                    <form [formGroup]="caseForm">
-                        <mat-form-field>
-                            <mat-select placeholder="Referrals " ngDefaultControl formControlName="case_referral">
-                                <mat-option *ngFor="let referral of casemodel_helper.referrals " [value]="referral ">
-                                    {{ referral }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                    <mat-form-field formGroupName="EpisodeStatus">
+                        <mat-select placeholder="Status" ngDefaultControl formControlName="Name">
+                            <mat-option *ngFor="let status of casemodel_helper.statuses " [value]="status">
+                                {{ status }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+                <form [formGroup]="caseForm">
+                    <mat-form-field>
+                        <mat-select placeholder="Referrals " ngDefaultControl formControlName="case_referral">
+                            <mat-option *ngFor="let referral of casemodel_helper.referrals " [value]="referral ">
+                                {{ referral }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-select placeholder="Payor " ngDefaultControl formControlName="case_payer">
-                                <mat-option *ngFor="let payer of casemodel_helper.payers " [value]="payer ">
-                                    {{ payer }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Payor " ngDefaultControl formControlName="case_payer">
+                            <mat-option *ngFor="let payer of casemodel_helper.payers " [value]="payer ">
+                                {{ payer }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-select placeholder="Treatement Settings" ngDefaultControl formControlName="treatement_settings">
-                                <mat-option *ngFor="let treat of casemodel_helper.treatement_settings " [value]="treat ">
-                                    {{ treat }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-select placeholder="Level Of Care" ngDefaultControl formControlName="level_of_care">
-                                <mat-option *ngFor="let level of casemodel_helper.level_of_care " [value]="level">
-                                    {{ level }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </form>
-                </mat-grid-tile>
-
-
-                <mat-grid-tile colspan="1">
-                    <form [formGroup]="caseForm">
-
-                        <mat-form-field appearance="outline">
-                            <mat-label>Description</mat-label>
-                            <textarea matInput placeholder="Some client details here ... " [value]="model.Description" cdkTextareaAutosize cdkAutosizeMinRows="4" ngDefaultControl formControlName="Description"></textarea>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-select placeholder="Tags " ngDefaultControl [formControl]="case_tags" multiple>
-                                <mat-option *ngFor="let tag of casemodel_helper.tags " [value]="tag ">
-                                    {{ tag }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field class="case-number ">
-                            <input matInput placeholder="Existing Client " [value]="model.ClientIds" ngDefaultControl formControlName="existing_client">
-                        </mat-form-field>
-                    </form>
-                </mat-grid-tile>
+                    <mat-form-field>
+                        <mat-select placeholder="Treatement Settings" ngDefaultControl formControlName="treatement_settings">
+                            <mat-option *ngFor="let treat of casemodel_helper.treatement_settings " [value]="treat ">
+                                {{ treat }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Level Of Care" ngDefaultControl formControlName="level_of_care">
+                            <mat-option *ngFor="let level of casemodel_helper.level_of_care " [value]="level">
+                                {{ level }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </mat-grid-tile>
 
 
-            </mat-grid-list>
-        </mat-expansion-panel>
-    </mat-accordion>
-    <app-charts (messageEvent)="chartMessage($event)" [panelState]="panel_opened"> chart div here ..</app-charts>
+            <mat-grid-tile colspan="1">
+                <form [formGroup]="caseForm">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Some client details here ... " [value]="model.Description" cdkTextareaAutosize cdkAutosizeMinRows="4" ngDefaultControl formControlName="Description"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-select placeholder="Tags " ngDefaultControl [formControl]="case_tags" multiple>
+                            <mat-option *ngFor="let tag of casemodel_helper.tags " [value]="tag ">
+                                {{ tag }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="case-number ">
+                        <input matInput placeholder="Existing Client " [value]="model.ClientIds" ngDefaultControl formControlName="existing_client">
+                    </mat-form-field>
+                </form>
+            </mat-grid-tile>
+
+
+        </mat-grid-list>
+    </mat-expansion-panel>
+    <app-charts class="charts_container" (messageEvent)="receiveChartClickedMessage($event)"> charts injected here ...</app-charts>
 </ion-content>

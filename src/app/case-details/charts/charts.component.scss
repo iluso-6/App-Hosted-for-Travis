@@ -1,14 +1,5 @@
 $headerRowBglight: #3d4f64;
-.slides_container {
-    top: 10px;
-    padding-bottom: 10px;
-}
-
 ion-slides {
-    bottom: 10px;
-}
-
-ion-slide {
     google-chart {
         border: 11px solid $headerRowBglight;
         border-radius: 25px;
@@ -16,4 +7,30 @@ ion-slide {
         margin: 0 auto;
         display: block;
     }
+    dx-chart {
+        border: 11px solid $headerRowBglight;
+        border-radius: 25px;
+        overflow: hidden;
+        margin: 0 auto;
+        display: block;
+    }
+    ion-slide {}
 }
+
+
+/*
+// iPad
+@media (min-width: 820px) {
+    ion-slides {
+        //  background-color: yellow;
+    }
+}
+
+// mobile phones 
+@media (min-width: 240px) and (max-width: 768px) {
+    ion-slides {
+        //   background-color: rgb(255, 0, 149);
+    }
+}
+
+*/

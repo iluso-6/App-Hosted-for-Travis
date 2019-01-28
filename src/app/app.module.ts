@@ -15,6 +15,7 @@ import { HttpRequestService } from './service/http-request.service';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { DxChartModule,  DxSelectBoxModule } from 'devextreme-angular';
 import 'hammerjs';
 
 @NgModule({
@@ -28,6 +29,8 @@ import 'hammerjs';
     BrowserModule, IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule,
     Ng2GoogleChartsModule,
+    DxChartModule,
+    DxSelectBoxModule,
     IonicStorageModule.forRoot()],
   providers: [
     HttpRequestService,
