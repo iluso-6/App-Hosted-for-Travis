@@ -5,10 +5,6 @@ $fontColor: #fffef4;
     margin: 5px;
 }
 
-app-charts {
-    bottom: 20px;
-}
-
 mat-panel-title {
     justify-content: space-between;
     align-items: center;
@@ -18,6 +14,16 @@ mat-panel-title {
     }
 }
 
-.panel_wrapper {
-    min-height: 900px;
+app-case-details {
+    background-color: red;
+}
+
+:ng-deep .inner-scroll {
+    color: red;
+    display: block;
+    text-align: center;
+    height: 100% !important;
+    app-charts {
+        bottom: 20px;
+    }
 }

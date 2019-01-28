@@ -199,7 +199,7 @@ export class ChartsComponent implements OnInit {
     font: { size: 12, weight: 900 }
   };
 
-  chart_opened = true;
+  panel_opened = true;
   caseModel: Case;
   types: string[] = ['area', 'stackedarea', 'fullstackedarea'];
 
@@ -214,13 +214,13 @@ export class ChartsComponent implements OnInit {
 
   chartClicked() {
     //   console.log(this.ionContent);
-    this.chart_opened = !this.chart_opened;
+    this.panel_opened = !this.panel_opened;
     this.sendChartClickedMessage();
-    this.closePanel(this.chart_opened);
+    this.closePanel(this.panel_opened);
   }
 
   sendChartClickedMessage() {
-    this.messageEvent.emit(this.chart_opened);
+    this.messageEvent.emit(this.panel_opened);
     console.log('sendMessage()');
   }
 
@@ -280,13 +280,13 @@ export class ChartsComponent implements OnInit {
   }
 
   closePanel(state) {
-    this.chart_opened = state;
+    this.panel_opened = state;
     this.ORS_SRS = Object.create(this.ORS_SRS);
     this.ProtectionSurvey = Object.create(this.ProtectionSurvey);
     this.IndicatorsSurvey = Object.create(this.IndicatorsSurvey);
     this.DrugUseSurvey = Object.create(this.DrugUseSurvey);
 
-    if (this.chart_opened) {
+    if (this.panel_opened) {
       this.all_chart_options.width = this.chartWidth;
       this.all_chart_options.height = this.chartHeigth;
       console.log('width');

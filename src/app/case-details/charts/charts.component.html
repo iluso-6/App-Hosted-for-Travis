@@ -1,14 +1,14 @@
 <ion-slides class="slides_container" pager="true">
 
     <ion-slide class="slide">
-        <dx-chart [dataSource]="dataSource" [size]="size_option" [commonSeriesSettings]="commonSeriesSettings" (click)="chartClicked() " [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
+        <dx-chart [dataSource]="dataSource" [size]="size_option" [commonSeriesSettings]="commonSeriesSettings" [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
 
             <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="area"></dxi-series>
             <dxi-series valueField="NTrajectory" name="Negative Treatment" color="#F86363" type="area"></dxi-series>
             <dxi-series valueField="OrsScore" name="ORS Score" type="line"></dxi-series>
             <dxi-value-axis>
-                <dxi-constant-line [value]="cutOff" dashStyle="dash" color="grey" width="1">
-                    <dxo-label [visible]="false">
+                <dxi-constant-line [value]="cutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
+                    <dxo-label [visible]="!panel_opened" text="ORS CutOff">
                     </dxo-label>
                 </dxi-constant-line>
             </dxi-value-axis>
@@ -17,7 +17,7 @@
                 </dxo-label>
                 <dxo-tick [visible]="false"></dxo-tick>
             </dxo-argument-axis>
-            <!-- <dxo-export [enabled]="true"></dxo-export>-->
+            <dxo-export [enabled]="!panel_opened"></dxo-export>
             <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
             </dxo-legend>
 
@@ -26,13 +26,14 @@
 
     </ion-slide>
     <ion-slide class="slide">
-        <google-chart [data]="ORS_SRS " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
+        <google-chart [data]="ORS_SRS " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
     </ion-slide>
     <ion-slide class="slide ">
-        <google-chart [data]="IndicatorsSurvey " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
+        <google-chart [data]="IndicatorsSurvey " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
     </ion-slide>
     <ion-slide class="slide ">
-        <google-chart [data]="DrugUseSurvey " (messageEvent)="receiveChartClickedMessage($event) " (click)="chartClicked() "></google-chart>
+        <google-chart [data]="DrugUseSurvey " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
+        <!-- (click)="chartClicked() "-->
     </ion-slide>
 
 </ion-slides>
