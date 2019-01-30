@@ -16,6 +16,7 @@ import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DxChartModule,  DxSelectBoxModule } from 'devextreme-angular';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import 'hammerjs';
 
 @NgModule({
@@ -31,6 +32,7 @@ import 'hammerjs';
     Ng2GoogleChartsModule,
     DxChartModule,
     DxSelectBoxModule,
+    FlexLayoutModule,
     IonicStorageModule.forRoot()],
   providers: [
     HttpRequestService,

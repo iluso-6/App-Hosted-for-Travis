@@ -20,6 +20,8 @@ import 'hammerjs';
 import { ChartsComponent } from './charts/charts.component';
 import { ChartsServiceService } from './charts/charts-service.service';
 import { DxRangeSelectorModule } from 'devextreme-angular';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 const routes: Routes = [
   {
     path: '',
@@ -46,6 +48,7 @@ const routes: Routes = [
     DxChartModule,
     DxSelectBoxModule,
     DxRangeSelectorModule,
+    FlexLayoutModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [WarningDialogComponent],

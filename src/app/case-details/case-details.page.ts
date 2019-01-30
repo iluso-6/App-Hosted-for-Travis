@@ -1,22 +1,15 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CaseHelper } from './case_model/CaseHelper';
-import { environment } from 'src/environments/environment';
-import { HttpRequestService } from '../service/http-request.service';
-import { LoadingController, NavController } from '@ionic/angular';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  FormGroupName
-} from '@angular/forms';
-import { CaseModel } from '../models/CaseModel';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupName } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingController, NavController, Platform } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 import { Case } from '../models/Case';
-import { ViewChild } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { CaseModel } from '../models/CaseModel';
+import { HttpRequestService } from '../service/http-request.service';
+import { CaseHelper } from './case_model/CaseHelper';
 import { ChartsComponent } from './charts/charts.component';
+import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 
 
 @Component({
@@ -38,13 +31,14 @@ export class CaseDetailsPage implements OnInit {
     public matdialog: MatDialog,
     private platform: Platform
   ) {
+    this.platform = platform;
     this.casemodel_helper = this.casehelper;
     this.model = new CaseModel();
     this.caseForm = this.createFormGroup();
     console.log('contructor');
     platform.ready().then(() => {
 
-      console.log('platform.ready()'  );
+   //   console.log('platform.ready() ' );
       this.screenWidth = this.platform.width();
       this.screenHeigth = this.platform.height();
   });
@@ -92,8 +86,9 @@ export class CaseDetailsPage implements OnInit {
     this.caseNumber = this.route.snapshot.paramMap.get('case_num');
     console.log(this.caseNumber);
     this.getEpisodeById(this.caseNumber);
-
   }
+
+
 
  receiveChartClickedMessage($event) {
     this.message = $event;

@@ -1,3 +1,4 @@
+@import "~@material/layout-grid/mdc-layout-grid";
 $headerRowBg: #314051;
 $headerRowBglight: #3d4f64;
 $fontColor: #fffef4;
@@ -12,9 +13,4 @@ mat-panel-title {
         position: absolute;
         right: 50px;
     }
-}
-
-.panel_wrapper {
-    display: block;
-    height: 100%;
 }

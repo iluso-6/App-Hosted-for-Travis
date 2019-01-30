@@ -11,7 +11,6 @@ import { HttpRequestService } from 'src/app/service/http-request.service';
 import { environment } from 'src/environments/environment';
 import { ChartsServiceService } from './charts-service.service';
 import { DxChartComponent } from 'devextreme-angular';
-import { DxRangeSelectorComponent} from 'devextreme-angular';
 
 
 @Component({
@@ -20,6 +19,7 @@ import { DxRangeSelectorComponent} from 'devextreme-angular';
   styleUrls: ['./charts.component.scss']
 })
 export class ChartsComponent implements OnInit {
+
   cutOff = 0;
   chartWidth = Math.round(this.platform.width() / 1.5);
   chartHeigth = Math.round(this.platform.height() / 3);
@@ -33,53 +33,19 @@ export class ChartsComponent implements OnInit {
     chartsServiceService: ChartsServiceService
   ) {
     this.chartsService = chartsServiceService;
-    this.rangeDataSource = this.rangeDataSource;
-    platform.ready().then(() => {
+    const self = this;
 
-      window.addEventListener('orientationchange', function() {
-        console.log(screen.orientation.type); // e.g. portrait
-    });
-      if ( screen.orientation.type === 'landscape-primary' ) {
-        this.chartWidth = Math.round(this.platform.width() / 1.5);
-        this.chartHeigth = Math.round(this.platform.height() / 3);
-        console.log('platform.isLandscape');
-      } else if ( screen.orientation.type === 'portrait-primary' ) {
-        this.chartWidth = Math.round(this.platform.width() / 1.5);
-        this.chartHeigth = Math.round(this.platform.height() / 3);
-        console.log('platform.isPortrait');
-      }
-      this.slides_options = {
-        onlyExternal: true,
-        onInit: (slides: any) =>
-          this.slider = slides
-      };
-      this.screenWidth = this.platform.width();
-      this.screenHeigth = this.platform.height();
-      this.dxRangeSelectorComponent.size = this.all_chart_options;
-      this.dxChartComponent.size = this.all_chart_options;
-    });
+    platform.ready().then(() => {
+      console.log('platform.ready()');
+      window.addEventListener('orientationchange', function() { self.setPlatFormDimensions(); });
+      // call this to init values
+      self.setPlatFormDimensions();
+     });
   }
 
-
-  startSelectedValue: Date = new Date(2011, 11, 25);
-  endSelectedValue: Date = new Date(2012, 0, 1);
-  rangeDataSource = [
-    { t: new Date(2011, 11, 22), costs: 19, income: 18 },
-    { t: new Date(2011, 11, 29), costs: 27, income: 12 },
-    { t: new Date(2012, 0, 5), costs: 30, income: 5 },
-    { t: new Date(2012, 0, 12), costs: 26, income: 6 },
-    { t: new Date(2012, 0, 19), costs: 18, income: 10 },
-    { t: new Date(2012, 0, 26), costs: 15, income: 15 },
-    { t: new Date(2012, 1, 2), costs: 14, income: 21 },
-    { t: new Date(2012, 1, 9), costs: 14, income: 25 }
-];
 panel_opened = true;
 
-valueAxis: {
-  min: 20,
-  max: 50,
-  valueMarginsEnabled: false,
-};
+
   commonSeriesSettings = {
       argumentField: 'AppointmentDate',
       point: {
@@ -91,16 +57,15 @@ valueAxis: {
       visible: true // !this.panel_opened
     }
   };
+
   ors_data: JSON;
   dataSource: JSON;
   chartsService: ChartsServiceService;
   @ViewChild(DxChartComponent) dxChartComponent: DxChartComponent;
-  @ViewChild(DxRangeSelectorComponent) dxRangeSelectorComponent: DxRangeSelectorComponent;
 
   @Output() messageEvent = new EventEmitter<boolean>();
 
-  screenWidth: number;
-  screenHeigth: number;
+
 
   chartHeigth_Margin = 200;
   chartWidth_Margin = 90;
@@ -110,140 +75,18 @@ valueAxis: {
     height: this.chartHeigth
   };
 
-  slideOpts = {
-    effect: 'flip'
-    //  width: this.platform.width(),
-    //  height: this.platform.height()
-  };
 
-  size_option = {
-    width: this.chartWidth,
-    height: this.chartHeigth
-  };
 
-  public ORS_SRS = {
-    chartType: 'AreaChart',
-    dataTable: [
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350]
-    ],
-    options: {
-      title: 'ORS & SRS',
-      width: this.all_chart_options.width,
-      height: this.all_chart_options.height,
-      animation: {
-        duration: 350,
-        easing: 'out',
-        startup: true
-      }
-    }
-  };
-
-  public ProtectionSurvey = {
-    chartType: 'LineChart',
-    dataTable: [
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350]
-    ],
-    options: {
-      title: 'Protection Survey',
-      width: this.all_chart_options.width,
-      height: this.all_chart_options.height,
-      animation: {
-        duration: 350,
-        easing: 'out',
-        startup: true
-      }
-    }
-  };
-
-  public IndicatorsSurvey = {
-    chartType: 'LineChart',
-    dataTable: [
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350]
-    ],
-    options: {
-      isStacked: 'relative',
-      title: 'Indicators Survey here',
-      width: this.all_chart_options.width,
-      height: this.all_chart_options.height,
-      animation: {
-        duration: 350,
-        easing: 'out',
-        startup: true
-      },
-      hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
-      vAxis: {minValue: 40}
-    }
-  };
-
-  public DrugUseSurvey = {
-    chartType: 'LineChart',
-    dataTable: [
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350]
-    ],
-    options: {
-      title: 'Drug Use Survey',
-      width: this.all_chart_options.width,
-      height: this.all_chart_options.height,
-      animation: {
-        duration: 350,
-        easing: 'out',
-        startup: true
-      }
-    }
-  };
 
   Chart_Titles = {
     text: 'ORS',
     font: { size: 12, weight: 900 }
   };
-
-
-  caseModel: Case;
-  types: string[] = ['area', 'stackedarea', 'fullstackedarea'];
-
-  adaptiveLayout: {
-    height: 300;
-    width: 400;
-  };
+// ********************************   preprocess chart data *****************************************
 
 OrsScore = 20; // something ...
 OriginPoint = this.OrsScore;
 YAxisMax = 40;
-
-
-/*
-orsData = [{
-  session_date: 'Date1',
-  PTrajectory: this.OriginPoint, // Origin Point
-  Trajectory: 0, // Trajectory - NTrajectory
-  NTrajectory: this.OriginPoint
-}, {
-  session_date: 'Date2',
-  PTrajectory: 16, // YAxisMax - ( NTrajectory + Trajectory )
-  Trajectory: 5,  // Trajectory - NTrajectory
-  NTrajectory: 19
-}, {
-  session_date: 'Date3',
-  PTrajectory: 17,
-  Trajectory: 6,
-  NTrajectory: 17
-}];*/
 
   orsData;
   ClinicalCutOff = 0;
@@ -286,7 +129,36 @@ orsData = [{
     return completedChartData;
 
   }
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  preprocess chart data ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
+
+  setPlatFormDimensions() {
+
+      console.log('orientationchange ' + screen.orientation.type); // e.g. portrait
+      if (screen.orientation.type === 'landscape-primary') {
+        this.chartWidth = Math.round(screen.width / 1.1);
+        this.chartHeigth = Math.round(screen.height / 2.8);
+      } else if (screen.orientation.type === 'portrait-primary') {
+        this.chartWidth = Math.round(screen.width / 1.1 );
+        this.chartHeigth = Math.round(screen.height / 2);
+      }
+      console.log('width: ' + screen.width);
+      console.log('height: ' + screen.height);
+
+
+    if (this.panel_opened) {
+      this.all_chart_options.width = this.chartWidth;
+      this.all_chart_options.height = this.chartHeigth;
+    } else {
+      this.all_chart_options.width =
+        this.platform.width() - this.chartWidth_Margin;
+      this.all_chart_options.height =
+        this.platform.height() - this.chartHeigth_Margin;
+    }
+    this.setChartSize(this.all_chart_options);
+
+  }
 
   ngOnInit() {
     console.log('ngOnInit');
@@ -297,7 +169,7 @@ orsData = [{
   ionViewDidEnter() {
     console.log('ionViewDidEnter');
   }
-  // updateAutoHeight(speed?: number | undefined) => Promise<void>
+
 
   chartClicked() {
     //   console.log(this.ionContent);
@@ -358,39 +230,32 @@ orsData = [{
   closePanel(state) {
 
     this.panel_opened = state;
-    this.ORS_SRS = Object.create(this.ORS_SRS);
-    this.ProtectionSurvey = Object.create(this.ProtectionSurvey);
-    this.IndicatorsSurvey = Object.create(this.IndicatorsSurvey);
-    this.DrugUseSurvey = Object.create(this.DrugUseSurvey);
 
     if (this.panel_opened) {
       this.all_chart_options.width = this.chartWidth;
       this.all_chart_options.height = this.chartHeigth;
-      console.log('width');
     } else {
       this.all_chart_options.width =
         this.platform.width() - this.chartWidth_Margin;
       this.all_chart_options.height =
         this.platform.height() - this.chartHeigth_Margin;
     }
-    this.dxChartComponent.size = this.all_chart_options;
-   this.dxChartComponent.instance.refresh();
+    this.setChartSize(this.all_chart_options);
 
-    this.dxRangeSelectorComponent.size = this.all_chart_options;
 
-    this.ORS_SRS.options.width = this.all_chart_options.width;
-    this.ORS_SRS.options.height = this.all_chart_options.height;
-    this.ProtectionSurvey.options.width = this.all_chart_options.width;
-    this.ProtectionSurvey.options.height = this.all_chart_options.height;
-    this.IndicatorsSurvey.options.width = this.all_chart_options.width;
-    this.IndicatorsSurvey.options.height = this.all_chart_options.height;
-    this.DrugUseSurvey.options.width = this.all_chart_options.width;
-    this.DrugUseSurvey.options.height = this.all_chart_options.height;
-    console.log(
-      'width: ' +
-        this.all_chart_options.width +
-        ' height: ' +
-        this.all_chart_options.height
-    );
+
+  }
+
+  setChartSize(size_options) {
+    console.log('update chart values');
+    const new_chart_options = {
+      width: size_options.width,
+      height: size_options.height
+    };
+    this.dxChartComponent.size = new_chart_options;
+    if (this.dxChartComponent.instance) {
+      console.log('dxChartComponent.instance.refresh();');
+    this.dxChartComponent.instance.refresh();
+    }
   }
 }
