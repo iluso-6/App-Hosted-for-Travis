@@ -20,9 +20,12 @@ export class ChartsServiceService {
     ors_data: any;
   public dataSource: JSON;
   cutOff: any;
+
+
+
   constructor(
     public loadingController: LoadingController,
-    private httpRequestService: HttpRequestService,
+    private httpRequestService: HttpRequestService
 
   ) { }
 

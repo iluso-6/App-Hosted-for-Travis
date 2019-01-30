@@ -12,7 +12,9 @@ import { environment } from 'src/environments/environment';
 import { ChartsServiceService } from './charts-service.service';
 import { DxChartComponent } from 'devextreme-angular';
 import { DxRangeSelectorComponent} from 'devextreme-angular';
-
+import { nextContext } from '@angular/core/src/render3';
+import { NEXT } from '@angular/core/src/render3/interfaces/view';
+import { reduce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-charts',
@@ -56,7 +58,6 @@ export class ChartsComponent implements OnInit {
       this.screenWidth = this.platform.width();
       this.screenHeigth = this.platform.height();
       this.dxRangeSelectorComponent.size = this.all_chart_options;
-      this.dxChartComponent.size = this.all_chart_options;
     });
   }
 
@@ -73,23 +74,13 @@ export class ChartsComponent implements OnInit {
     { t: new Date(2012, 1, 2), costs: 14, income: 21 },
     { t: new Date(2012, 1, 9), costs: 14, income: 25 }
 ];
-panel_opened = true;
 
-valueAxis: {
-  min: 20,
-  max: 50,
-  valueMarginsEnabled: false,
-};
+
   commonSeriesSettings = {
       argumentField: 'AppointmentDate',
       point: {
           visible: false
       }
-  };
-  commonAxisSettings = {
-    label: {
-      visible: true // !this.panel_opened
-    }
   };
   ors_data: JSON;
   dataSource: JSON;
@@ -120,6 +111,33 @@ valueAxis: {
     width: this.chartWidth,
     height: this.chartHeigth
   };
+
+  valueAxis = [
+    {
+      name: 'frequency',
+      position: 'left',
+      tickInterval: 300
+    },
+    {
+      name: 'percentage',
+      position: 'right',
+      showZero: true,
+      label: {
+        customizeText: 'customizeLabelText'
+      },
+      constantLines: [
+        {
+          value: 80,
+          color: '#fc3535',
+          dashStyle: 'dash',
+          width: 2,
+          label: { visible: false }
+        }
+      ],
+      tickInterval: 20,
+      valueMarginsEnabled: false
+    }
+  ];
 
   public ORS_SRS = {
     chartType: 'AreaChart',
@@ -213,7 +231,7 @@ valueAxis: {
     font: { size: 12, weight: 900 }
   };
 
-
+  panel_opened = true;
   caseModel: Case;
   types: string[] = ['area', 'stackedarea', 'fullstackedarea'];
 

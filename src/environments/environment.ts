@@ -24,7 +24,6 @@ export const environment = {
 };
 
 
-// https://openfitapi-falke.azurewebsites.net/api/ClientApi/GetORSAnswers?languageCode=US&clientId=136925&episodeId=134741&includeCollateralData=false
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

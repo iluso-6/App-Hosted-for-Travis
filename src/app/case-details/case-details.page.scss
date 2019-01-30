@@ -14,16 +14,7 @@ mat-panel-title {
     }
 }
 
-app-case-details {
-    background-color: red;
-}
-
-:ng-deep .inner-scroll {
-    color: red;
+.panel_wrapper {
     display: block;
-    text-align: center;
-    height: 100% !important;
-    app-charts {
-        bottom: 20px;
-    }
+    height: 100%;
 }

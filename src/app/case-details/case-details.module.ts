@@ -19,6 +19,7 @@ import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 import 'hammerjs';
 import { ChartsComponent } from './charts/charts.component';
 import { ChartsServiceService } from './charts/charts-service.service';
+import { DxRangeSelectorModule } from 'devextreme-angular';
 const routes: Routes = [
   {
     path: '',
@@ -44,6 +45,7 @@ const routes: Routes = [
     Ng2GoogleChartsModule,
     DxChartModule,
     DxSelectBoxModule,
+    DxRangeSelectorModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [WarningDialogComponent],

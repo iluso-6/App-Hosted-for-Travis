@@ -52,14 +52,6 @@ export class CaseDetailsPage implements OnInit {
 
   @ViewChild(ChartsComponent) chartsComponent: ChartsComponent;
 
-
-  // tslint:disable-next-line:quotemark
-  expansion_panel_width = "'190px'";
-  // tslint:disable-next-line:quotemark
-  expansion_panel_height = "'300px'";
-
-
-
   // warning dialog button states
   delete_button_clicked = false;
   cancel_button_clicked = false;

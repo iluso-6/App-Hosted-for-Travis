@@ -1,13 +1,17 @@
 <ion-slides class="slides_container" pager="true">
 
-    <ion-slide class="slide">
-        <dx-chart [dataSource]="dataSource" [size]="size_option" [commonSeriesSettings]="commonSeriesSettings" [title]="Chart_Titles" font=" { size: 20, family: 'Arial', weight: 400 }">
 
-            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="area"></dxi-series>
-            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="#F86363" type="area"></dxi-series>
-            <dxi-series valueField="OrsScore" name="ORS Score" type="line"></dxi-series>
-            <dxi-value-axis>
-                <dxi-constant-line [value]="cutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
+    <ion-slide class="slide">
+        <dx-chart [title]="Chart_Titles" [commonSeriesSettings]="commonSeriesSettings" [commonAxisSettings]="commonAxisSettings" font=" { size: 20, family: 'Arial', weight: 400 }" palette="Harmony Light" [dataSource]="orsData">
+
+            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="rgba(248,99,99,1)" type="stackedarea"></dxi-series>
+            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="stackedarea"></dxi-series>
+            <dxi-series valueField="PTrajectory" name="Positive Zone" color="lightgreen" type="stackedarea"></dxi-series>
+            <dxi-series valueField="OrsScore" name="ORS Score" color="#314051" type="line" width="3" dashStyle="longDash">
+                <dxo-label [visible]="!panel_opened" text="ORS Score"></dxo-label>
+            </dxi-series>
+            <dxi-value-axis max="50" tickInterval="10">
+                <dxi-constant-line [value]="ClinicalCutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
                     <dxo-label [visible]="!panel_opened" text="ORS CutOff">
                     </dxo-label>
                 </dxi-constant-line>
@@ -15,21 +19,30 @@
             <dxo-argument-axis [valueMarginsEnabled]="false">
                 <dxo-label [visible]="false">
                 </dxo-label>
-                <dxo-tick [visible]="false"></dxo-tick>
             </dxo-argument-axis>
             <dxo-export [enabled]="!panel_opened"></dxo-export>
             <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
             </dxo-legend>
-
         </dx-chart>
 
-
-    </ion-slide>
-    <ion-slide class="slide">
-        <google-chart [data]="ORS_SRS " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
     </ion-slide>
     <ion-slide class="slide ">
-        <google-chart [data]="IndicatorsSurvey " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
+        <dx-range-selector id="range-selector" [value]="[startSelectedValue, endSelectedValue]" title="Select a Range in the Costs and Revenues History" [dataSource]="rangeDataSource">
+            <dxo-margin [top]="50"></dxo-margin>
+            <dxo-size [height]="310"></dxo-size>
+            <dxo-scale minorTickInterval="day">
+                <dxo-tick-interval [days]="7">
+                </dxo-tick-interval>
+            </dxo-scale>
+            <dxo-chart>
+                <dxi-series argumentField="t" valueField="costs"></dxi-series>
+                <dxi-series argumentField="t" valueField="income"></dxi-series>
+                <dxo-value-axis [min]="0"></dxo-value-axis>
+            </dxo-chart>
+        </dx-range-selector>
+    </ion-slide>
+    <ion-slide class="slide ">
+        <google-chart [data]="IndicatorsSurvey" (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
     </ion-slide>
     <ion-slide class="slide ">
         <google-chart [data]="DrugUseSurvey " (messageEvent)="receiveChartClickedMessage($event) "></google-chart>
