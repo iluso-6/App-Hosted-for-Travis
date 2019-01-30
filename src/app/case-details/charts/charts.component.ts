@@ -146,15 +146,15 @@ YAxisMax = 40;
       console.log('width: ' + screen.width);
       console.log('height: ' + screen.height);
 
-
+      console.log('this.panel_opened: ' + this.panel_opened);
     if (this.panel_opened) {
       this.all_chart_options.width = this.chartWidth;
       this.all_chart_options.height = this.chartHeigth;
     } else {
       this.all_chart_options.width =
-        this.platform.width() - this.chartWidth_Margin;
+      screen.width - this.chartWidth_Margin;
       this.all_chart_options.height =
-        this.platform.height() - this.chartHeigth_Margin;
+      screen.height - this.chartHeigth_Margin;
     }
     this.setChartSize(this.all_chart_options);
 
@@ -236,9 +236,9 @@ YAxisMax = 40;
       this.all_chart_options.height = this.chartHeigth;
     } else {
       this.all_chart_options.width =
-        this.platform.width() - this.chartWidth_Margin;
+      screen.width - this.chartWidth_Margin;
       this.all_chart_options.height =
-        this.platform.height() - this.chartHeigth_Margin;
+      screen.height - this.chartHeigth_Margin;
     }
     this.setChartSize(this.all_chart_options);
 
