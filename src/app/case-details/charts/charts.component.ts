@@ -45,7 +45,20 @@ export class ChartsComponent implements OnInit {
 
 panel_opened = true;
 
-
+commonPaneSettings =  {
+  backgroundColor: '#FFFcdc',
+  border: {
+    bottom: true,
+    color: '#d3d3d3',
+    dashStyle: 'solid',
+    left: true,
+    opacity: undefined,
+    right: true,
+    top: true,
+    visible: false,
+    width: 1
+    },
+};
   commonSeriesSettings = {
       argumentField: 'AppointmentDate',
       point: {
@@ -80,6 +93,7 @@ panel_opened = true;
 
   Chart_Titles = {
     text: 'ORS',
+    color: 'white',
     font: { size: 12, weight: 900 }
   };
 // ********************************   preprocess chart data *****************************************
@@ -252,10 +266,12 @@ YAxisMax = 40;
       width: size_options.width,
       height: size_options.height
     };
-    this.dxChartComponent.size = new_chart_options;
+
     if (this.dxChartComponent.instance) {
       console.log('dxChartComponent.instance.refresh();');
+      this.dxChartComponent.size = new_chart_options;
     this.dxChartComponent.instance.refresh();
     }
   }
 }
+

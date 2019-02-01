@@ -2,6 +2,31 @@
 
 
     <ion-slide class="slide">
+        <dx-chart containerBackgroundColor="red" [commonPaneSettings]="commonPaneSettings" [commonSeriesSettings]="commonSeriesSettings" [commonAxisSettings]="commonAxisSettings" [dataSource]="orsData">
+
+            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="rgba(248,99,99,1)" type="stackedarea"></dxi-series>
+            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="stackedarea"></dxi-series>
+            <dxi-series valueField="PTrajectory" name="Positive Zone" color="lightgreen" type="stackedarea"></dxi-series>
+            <dxi-series valueField="OrsScore" name="ORS Score" color="#314051" type="line" width="3" dashStyle="longDash">
+                <dxo-label [visible]="!panel_opened" text="ORS Score"></dxo-label>
+            </dxi-series>
+            <dxi-value-axis max="50" tickInterval="10">
+                <dxi-constant-line [value]="ClinicalCutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
+                    <dxo-label [visible]="!panel_opened" text="ORS CutOff">
+                    </dxo-label>
+                </dxi-constant-line>
+                <dxo-label [visible]="false">
+                </dxo-label>
+            </dxi-value-axis>
+            <dxo-argument-axis [valueMarginsEnabled]="false">
+                <dxo-label [visible]="false">
+                </dxo-label>
+            </dxo-argument-axis>
+            <dxo-export [enabled]="!panel_opened"></dxo-export>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" [visible]="!panel_opened">
+            </dxo-legend>
+        </dx-chart>
+        <!--
         <dx-chart [title]="Chart_Titles" [commonSeriesSettings]="commonSeriesSettings" [commonAxisSettings]="commonAxisSettings" font=" { size: 20, family: 'Arial', weight: 400 }" palette="Harmony Light" [dataSource]="orsData">
 
             <dxi-series valueField="NTrajectory" name="Negative Treatment" color="rgba(248,99,99,1)" type="stackedarea"></dxi-series>
@@ -23,7 +48,7 @@
             <dxo-export [enabled]="!panel_opened"></dxo-export>
             <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
             </dxo-legend>
-        </dx-chart>
+        </dx-chart>-->
 
     </ion-slide>
 

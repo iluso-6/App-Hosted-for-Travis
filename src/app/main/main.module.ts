@@ -6,14 +6,26 @@ import { RouterModule } from '@angular/router';
 
 import { MainPage } from './main.page';
 import {MatTableModule} from '@angular/material/table';
-
-
+import { MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, MdcChipsModule } from '@angular-mdc/web';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CustomMaterialModule } from '../core/material.module';
+import { ChartsComponent } from '../case-details/charts/charts.component';
+import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
 @NgModule({
   imports: [
     MatTableModule,
     CommonModule,
     FormsModule,
     IonicModule,
+    MdcListModule,
+    MdcIconModule,
+    MdcCheckboxModule,
+    MdcTextFieldModule,
+    MdcChipsModule,
+    FlexLayoutModule,
+    DxChartModule,
+    DxSelectBoxModule,
+    CustomMaterialModule,
     RouterModule.forChild([
       {
         path: '',
@@ -21,7 +33,8 @@ import {MatTableModule} from '@angular/material/table';
       }
     ])
   ],
-  declarations: [MainPage]
+  providers: [ {provide: ChartsComponent, useClass: ChartsComponent}],
+  declarations: [MainPage, ChartsComponent]
 })
 export class MainPageModule {
 

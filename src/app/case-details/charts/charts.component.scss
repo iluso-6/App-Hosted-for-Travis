@@ -1,5 +1,7 @@
 $headerRowBglight: #3d4f64;
 ion-slides {
+    min-width: 100%;
+    min-height: 100%;
     google-chart {
         border: 11px solid $headerRowBglight;
         border-radius: 25px;
@@ -20,6 +22,10 @@ ion-slides {
         overflow: hidden;
         margin: 0 auto;
         display: block;
+    }
+    ion-slide {
+        min-width: 100%;
+        min-height: 100%;
     }
 }
 

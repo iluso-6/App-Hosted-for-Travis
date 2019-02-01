@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupName } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -6,10 +6,11 @@ import { LoadingController, NavController, Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { Case } from '../models/Case';
 import { CaseModel } from '../models/CaseModel';
-import { HttpRequestService } from '../service/http-request.service';
 import { CaseHelper } from './case_model/CaseHelper';
 import { ChartsComponent } from './charts/charts.component';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
+import { HttpRequestService } from '../service/http-request.service';
+import { DxChartComponent } from 'devextreme-angular';
 
 
 @Component({
@@ -63,6 +64,8 @@ export class CaseDetailsPage implements OnInit {
     width: this.chartWidth,
     height: this.chartHeigth
   };
+
+
 
   edit_mode = false;
 

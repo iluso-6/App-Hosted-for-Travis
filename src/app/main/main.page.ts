@@ -1,14 +1,15 @@
-import {  Component, OnInit } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpRequestService } from '../service/http-request.service';
 import { environment } from '../../environments/environment';
 import { EpisodeModel } from '../models/EpisodeModel';
-import { DataElement } from './DataElement';
 import { NavController, Platform, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { CaseModel } from '../models/CaseModel';
+import { ChartsComponent } from '../case-details/charts/charts.component';
 
 
-const ELEMENT_DATA: DataElement[] = [
+const ELEMENT_DATA: CaseModel[] = [
 ];
 
 
@@ -19,29 +20,65 @@ const ELEMENT_DATA: DataElement[] = [
 })
 
 export class MainPage implements OnInit {
-  episodes: EpisodeModel;
-  current_user: string;
+
 
 constructor(private route: ActivatedRoute,
   public platform: Platform, private navCtrl: NavController,
    private httpRequestService: HttpRequestService,
    public loadingController: LoadingController) {
     this.httpRequestService.getStoredToken();
+
 }
 
+  @ViewChild(ChartsComponent) chartsComponent: ChartsComponent;
+  episodes: EpisodeModel;
+  current_user: string;
 
+
+
+
+
+
+
+  // tslint:disable-next-line:member-ordering
   displayedColumns = ['ExternalKey', 'EpisodeOwner',
   'CliniciansNames', 'ClientsNames', 'EpisodeStatus',
   'StartDate', 'LastSessionDate',
   'Type', 'Alert', 'Description'];
 
   dataSource = ELEMENT_DATA;
+  files: any[] = null;
+   filetemplate = [
+    { name: 'Clininicians', icon: 'folder', id: 'CliniciansNames'},
+    { name: 'Owner', icon: 'folder', id: 'EpisodeOwner'},
+    { name: 'Clients', icon: 'insert_drive_file', id: 'ClientsNames'},
+    { name: 'Clients', icon: 'insert_drive_file', id: 'StartDate'},
+  ];
+  lookupVal;
+
+  folders = [
+    { name: 'Owner', icon: 'folder', addDate: 'Jan 9, 2015', id: 'EpisodeOwner', index: 0},
+    { name: 'Clininicians', icon: 'folder', addDate: 'Jan 17, 2015', id: 'CliniciansNames', index: 1 },
+    { name: 'Clients', icon: 'folder', addDate: 'Jan 28, 2015', id: 'ClientsNames', index: 2},
+    { name: 'All Files', icon: 'folder', addDate: 'Jan 28, 2015', id: 'ExternalKey', index: 3},
+  ];
+  all_chart_options = {
+    width: 400,
+    height: 160
+  };
+
+  selectedEpisode: CaseModel;
+
 
   ngOnInit() {
 
   }
+  _selectionChange = (item) => {
 
-
+    const index = item.index;
+   this.files = this.dataSource;
+  this.lookupVal = this.filetemplate[index];
+  }
 
   async getEpisodes() {
 
@@ -54,6 +91,9 @@ constructor(private route: ActivatedRoute,
         console.log(result);
         loading.dismiss();
         this.dataSource = result;
+        this.selectedEpisode = this.dataSource[0];
+        this.chartsComponent.loadChartData(this.dataSource[0]);
+        this.chartsComponent.setChartSize(this.all_chart_options);
       },
       err => {
         console.log(err);

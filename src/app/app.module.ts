@@ -18,6 +18,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DxChartModule,  DxSelectBoxModule } from 'devextreme-angular';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import 'hammerjs';
+import { MdcListModule, MdcIconModule } from '@angular-mdc/web';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,8 @@ import 'hammerjs';
     DxChartModule,
     DxSelectBoxModule,
     FlexLayoutModule,
+    MdcListModule,
+    MdcIconModule,
     IonicStorageModule.forRoot()],
   providers: [
     HttpRequestService,

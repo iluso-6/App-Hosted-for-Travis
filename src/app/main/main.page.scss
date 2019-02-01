@@ -1,3 +1,27 @@
+$open-fit-blue:#43C4B2;
+$headerRowBg: #314051;
+$open-fit-bg-blue: #3d4f64;
+$mdc-theme-primary: #43C4B2;
+$mdc-theme-secondary: #43C4B2;
+@import "~@angular-mdc/theme/material";
+.demo-list--custom {
+    @include mdc-list-item-graphic-ink-color(white);
+    @include mdc-list-divider-color($material-color-pink-50);
+    @include mdc-list-item-primary-text-ink-color(rgb(252, 249, 237));
+    @include mdc-list-item-secondary-text-ink-color($material-color-purple-600);
+    @include mdc-list-item-graphic-fill-color($material-color-blue-100);
+    @include mdc-list-item-graphic-ink-color($open-fit-bg-blue);
+    @include mdc-list-item-meta-ink-color($material-color-orange-500);
+    @include mdc-list-item-shape-radius(0 50px 50px 0);
+}
+
+.custom-chip-secondary {
+    @include mdc-chip-fill-color(white);
+    @include mdc-chip-ink-color($mdc-theme-secondary);
+    @include mdc-chip-selected-ink-color($mdc-theme-secondary);
+    @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
+}
+
 $headerRowBg: #314051;
 $fontColor: #fffef4;
 $aceCyan: #43C4B2;
@@ -44,4 +68,8 @@ ion-title {
     width: 100%;
     height: 100%;
     text-align: center;
+}
+
+.masters {
+    background-color: green;
 }
