@@ -60,10 +60,12 @@ export class CaseDetailsPage implements OnInit {
   chartHeigth = Math.round(this.platform.height() / 3);
   chartHeigth_Margin = 200;
   chartWidth_Margin = 90;
-  all_chart_options = {
+
+/*  all_chart_options = {
     width: this.chartWidth,
     height: this.chartHeigth
-  };
+  };*/
+
 
 
 

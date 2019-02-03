@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { MainPage } from './main.page';
 import {MatTableModule} from '@angular/material/table';
-import { MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, MdcChipsModule } from '@angular-mdc/web';
+import {MdcElevationModule, MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, MdcChipsModule } from '@angular-mdc/web';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CustomMaterialModule } from '../core/material.module';
 import { ChartsComponent } from '../case-details/charts/charts.component';
 import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
+
 @NgModule({
   imports: [
     MatTableModule,
@@ -22,6 +23,7 @@ import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
     MdcCheckboxModule,
     MdcTextFieldModule,
     MdcChipsModule,
+    MdcElevationModule,
     FlexLayoutModule,
     DxChartModule,
     DxSelectBoxModule,

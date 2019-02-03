@@ -128,12 +128,16 @@
                                 <h3 subheader *ngIf="lookupVal && lookupVal.icon != 'folder'">Files</h3>
                                 <mdc-list-item *ngFor="let file of files">
                                     <mdc-icon mdcListItemGraphic>{{lookupVal.icon}}</mdc-icon>
-                                    <mdc-list-item-text *ngIf="lookupVal.id != 'StartDate'">{{file[lookupVal.id]}}</mdc-list-item-text>
-                                    <mdc-list-item-text *ngIf="lookupVal.id == 'StartDate'">ID: {{file.ClientsIds[0]}} Date: {{file[lookupVal.id] | date: "dd-MM-yyyy"}}</mdc-list-item-text>
+                                    <mdc-list-item-text *ngIf="lookupVal.id != 'StartDate'">{{file[lookupVal.id]}}
+
+                                    </mdc-list-item-text>
+                                    <mdc-list-item-text *ngIf="lookupVal.id == 'StartDate'">ID: {{file.ClientsIds[0]}}&#160;&#160;&#160;Date: {{file[lookupVal.id] | date: "dd-MM-yyyy"}}</mdc-list-item-text>
                                     <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more" title="More info">info</a>
+
                                 </mdc-list-item>
                             </mdc-list>
                         </div>
+
                     </ion-col>
                 </ion-row>
             </mdc-list-group>

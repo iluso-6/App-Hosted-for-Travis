@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "openfit-98a61",
+    "default": "openfitapp-7f5e3"
+  }
+}
