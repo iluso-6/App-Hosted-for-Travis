@@ -4,5 +4,6 @@ script: echo "Deploying"
 install: npm install -g firebase-tools
 install: npm install -g @angular/cli
 install: npm install -g ionic
+install: npm install -g firebase-tools
 after-success: ionic build
 script: firebase deploy --token $FIREBASE_TOKEN
