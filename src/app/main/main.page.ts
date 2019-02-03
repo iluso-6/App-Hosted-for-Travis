@@ -63,8 +63,8 @@ constructor(private route: ActivatedRoute,
     { name: 'All Files', icon: 'folder', addDate: 'Jan 28, 2015', id: 'ExternalKey', index: 3},
   ];
   all_chart_options = {
-    width: 400,
-    height: 160
+    width:   Math.round(screen.width / 1.0),
+    height:  Math.round(screen.height / 3)
   };
 
   selectedEpisode: CaseModel;

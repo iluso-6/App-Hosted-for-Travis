@@ -23,6 +23,18 @@ $mdc-theme-secondary: #43C4B2;
     @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
 }
 
+$card-bg: #4b4b4b;
+.example-container {
+    height: 400px;
+    overflow: auto;
+    background-color: $card-bg;
+}
+
+table {
+    width: 100%;
+    background-color: $card-bg;
+}
+
 $headerRowBg: #314051;
 $fontColor: #fffef4;
 $aceCyan: #43C4B2;
