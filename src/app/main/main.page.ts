@@ -7,7 +7,8 @@ import { NavController, Platform, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { CaseModel } from '../models/CaseModel';
 import { ChartsComponent } from '../case-details/charts/charts.component';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort } from '@angular/material';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 const ELEMENT_DATA: any[] = [
@@ -18,6 +19,13 @@ const ELEMENT_DATA: any[] = [
   selector: 'app-main',
   templateUrl: 'main.page.html',
   styleUrls: ['main.page.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('expanded', style({ height: '*', visibility: 'visible' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class MainPage implements OnInit {
@@ -41,15 +49,20 @@ constructor(private route: ActivatedRoute,
 
 
   links = [ 'Cases', 'Clients'];
-  activeLink = this.links[0];
+  activeLink = this.links[1];
 
-
+  expandSource = ELEMENT_DATA;
 
 // tslint:disable-next-line:member-ordering
 displayedColumnsClients = ['ExternalKey', 'ClientsNames', 'EpisodeStatus', 'Type', 'LastSessionDate', 'CliniciansNames'];
 
 // tslint:disable-next-line:member-ordering
  displayedColumnsCases = ['ExternalKey', 'CliniciansNames', 'EpisodeStatus', 'EpisodeOwner', 'StartDate', 'LastSessionDate'];
+
+
+
+
+ expandedElement;
 
 
 dataSource;
@@ -75,6 +88,14 @@ dataSource;
 
   selectedEpisode: CaseModel;
 
+  isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
+
+  onRowClicked(element) {
+    const current_element = element;
+   this.expandedElement = this.expandedElement === current_element ? null : current_element;
+   console.log(element);
+ // this.expandedElement = current_element;
+}
 
   ngOnInit() {
 
@@ -130,6 +151,7 @@ dataSource;
   }
 
   getCurrentEpisode(case_num) {
+    console.log(case_num);
     for (const key in this.dataSource) {
       if (this.dataSource.hasOwnProperty(key)) {
         if (this.dataSource[key].ExternalKey === case_num) {

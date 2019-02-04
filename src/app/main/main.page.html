@@ -15,7 +15,7 @@
             <ion-row justify-content-evenly>
                 <ion-col col-12>
                     <div class="sec2">
-                        <app-charts class="charts_container"> charts injected here ...</app-charts>
+                        <app-charts mat-card-image> charts injected here ...</app-charts>
                     </div>
                 </ion-col>
             </ion-row>
@@ -26,22 +26,22 @@
     <mat-card>
 
         <nav mat-tab-nav-bar>
-            <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" [active]="activeLink == link"> {{link}} </a>
+            <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link; expandedElement=null;" [active]="activeLink == link"> {{link}} </a>
             <!-- <mat-form-field style="float:right;">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
             </mat-form-field> -->
         </nav>
 
         <div class="example-container mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" [hidden]="activeLink == links[0]">
 
-                <!-- Case number Column -->
+
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" [hidden]="activeLink==links[0]">
+
                 <ng-container matColumnDef="ExternalKey">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Case number </th>
-                    <td mat-cell class="case_num" *matCellDef="let element" (click)="getCurrentEpisode( element.ExternalKey )"> {{element.ExternalKey}} </td>
+                    <td mat-cell class="case_num" *matCellDef="let element"> {{element.ExternalKey}} </td>
                 </ng-container>
 
-                <!-- Clients Column -->
                 <ng-container matColumnDef="ClientsNames">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Clients </th>
                     <td mat-cell *matCellDef="let element"> {{element.ClientsNames}} </td>
@@ -51,33 +51,53 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Status </th>
                     <td mat-cell *matCellDef="let element"> {{element.EpisodeStatus.Name}} </td>
                 </ng-container>
-                <!-- Type Column -->
+
                 <ng-container matColumnDef="Type">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Type </th>
                     <td mat-cell *matCellDef="let element"> {{element.EpisodeType.Name}} </td>
                 </ng-container>
-                <!-- Last Session Column -->
+
                 <ng-container matColumnDef="LastSessionDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Last Session </th>
                     <td mat-cell *matCellDef="let element"> {{element.LastSessionDate | date: "dd-MM-yyyy"}} </td>
                 </ng-container>
-                <!-- Clinicians Column -->
+
                 <ng-container matColumnDef="CliniciansNames">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Clinicians </th>
                     <td mat-cell *matCellDef="let element"> {{element.CliniciansNames}} </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsClients; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsClients;"></tr>
-            </table>
-            <table mat-table [dataSource]="dataSource" [hidden]="activeLink == links[1]">
 
-                <!-- Case number Column -->
-                <ng-container matColumnDef="ExternalKey">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-heade> Case number </th>
-                    <td mat-cell class="case_num" *matCellDef="let element" (click)="getCurrentEpisode( element.ExternalKey )"> {{element.ExternalKey}} </td>
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsClients.length">
+                        <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                            <div class="expandIcons" fxLayout="row" fxLayoutAlign="space-around center">
+                                <ion-icon name="clipboard"></ion-icon>
+                                <ion-icon name="create"></ion-icon>
+                                <ion-icon name="trash"></ion-icon>
+
+                            </div>
+                        </div>
+                    </td>
                 </ng-container>
 
-                <!-- Clinicians Column -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsClients"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsClients;" (click)="onRowClicked(element)" class="example-element-row" [class.example-expanded-row]="expandedElement===element ">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: [ 'expandedDetail'] " class="example-detail-row"></tr>
+
+            </table>
+
+            <!-- ***************************************************************************** -->
+
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 " [hidden]="activeLink==links[1]">
+
+                <ng-container matColumnDef="ExternalKey">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-heade> Case number </th>
+                    <td mat-cell class="case_num" *matCellDef="let element"> {{element.ExternalKey}} </td>
+                </ng-container>
+
+
                 <ng-container matColumnDef="CliniciansNames">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Clinicians </th>
                     <td mat-cell *matCellDef="let element"> {{element.CliniciansNames}} </td>
@@ -87,68 +107,45 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Status </th>
                     <td mat-cell *matCellDef="let element"> {{element.EpisodeStatus.Name}} </td>
                 </ng-container>
-                <!-- Owner Column -->
+
                 <ng-container matColumnDef="EpisodeOwner">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Owner </th>
                     <td mat-cell *matCellDef="let element"> {{element.EpisodeOwner}} </td>
                 </ng-container>
 
-                <!-- Start Date Column -->
+
                 <ng-container matColumnDef="StartDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Start Date </th>
                     <td mat-cell *matCellDef="let element"> {{element.StartDate | date: "dd-MM-yyyy"}} </td>
                 </ng-container>
 
-                <!-- Last Session Column -->
+
                 <ng-container matColumnDef="LastSessionDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-heade> Last Session </th>
                     <td mat-cell *matCellDef="let element"> {{element.LastSessionDate | date: "dd-MM-yyyy"}} </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsCases; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsCases;"></tr>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsCases.length ">
+                        <div class="element-detail" [@detailExpand]="element==expandedElement ? 'expanded' : 'collapsed' ">
+                            <div class="expandIcons" fxLayout="row" fxLayoutAlign="space-around center">
+                                <ion-icon name="clipboard"></ion-icon>
+                                <ion-icon name="create"></ion-icon>
+                                <ion-icon name="trash"></ion-icon>
+
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCases"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsCases;" (click)="onRowClicked(element)" class="example-element-row" [class.example-expanded-row]="expandedElement === element">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
             </table>
+
         </div>
-        <!-- <ion-grid>
-            <mdc-list-group>
-                <ion-row justify-content-between>
-                    <ion-col col-3>
-                        <div class="sec1">
-                            <mdc-list twoLine avatar class="demo-list--custom" singleSelection>
-                                <h3 subheader>Categories</h3>
-                                <mdc-list-item *ngFor="let folder of folders" (click)="_selectionChange(folder)">
-                                    <mdc-icon mdcListItemGraphic>{{folder.icon}}</mdc-icon>
-                                    <mdc-list-item-text>{{folder.name}}</mdc-list-item-text>
-                                </mdc-list-item>
-                            </mdc-list>
-                            <mat-form-field class="example-form-field">
-                                <input matInput type="text" placeholder="Filter Results" [(ngModel)]="value">
-                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                      <mat-icon>close</mat-icon>
-                                    </button>
-                            </mat-form-field>
-                        </div>
-                    </ion-col>
-
-                    <ion-col col-9>
-                        <div class="sec2">
-                            <mdc-list twoLine avatar class="demo-list--custom" singleSelection>
-                                <h3 subheader *ngIf="lookupVal && lookupVal.icon == 'folder'">Folders</h3>
-                                <h3 subheader *ngIf="lookupVal && lookupVal.icon != 'folder'">Files</h3>
-                                <mdc-list-item *ngFor="let file of files">
-                                    <mdc-icon mdcListItemGraphic>{{lookupVal.icon}}</mdc-icon>
-                                    <mdc-list-item-text *ngIf="lookupVal.id != 'StartDate'">{{file[lookupVal.id]}}
-
-                                    </mdc-list-item-text>
-                                    <mdc-list-item-text *ngIf="lookupVal.id == 'StartDate'">ID: {{file.ClientsIds[0]}}&#160;&#160;&#160;Date: {{file[lookupVal.id] | date: "dd-MM-yyyy"}}</mdc-list-item-text>
-                                    <a href="#/list-demo/examples" mdcListItemMeta mdcIcon aria-label="View more" title="More info">info</a>
-
-                                </mdc-list-item>
-                            </mdc-list>
-                        </div>
-
-                    </ion-col>
-                </ion-row>
-            </mdc-list-group>
-        </ion-grid> -->
+        <!-- <ion-grid> (click)="onRowClicked(row)" -->
     </mat-card>
 </ion-content>

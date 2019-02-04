@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import {MatInputModule, MatNativeDateModule, MatDatepickerModule,
      MatSelectModule, MatExpansionModule, MatCardModule, MatButtonModule,
      MatProgressSpinnerModule, MatGridListModule, MatProgressBarModule,
-     MatSnackBarModule, MatDialogModule, MatIcon, MatIconBase, MatIconModule
+     MatSnackBarModule, MatDialogModule, MatIcon, MatIconBase, MatIconModule, MatTabsModule
 } from '@angular/material';
+import { MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, MdcChipsModule, MdcElevationModule } from '@angular-mdc/web';
 @NgModule({
   imports: [
      MatProgressBarModule,
@@ -20,7 +21,15 @@ import {MatInputModule, MatNativeDateModule, MatDatepickerModule,
   MatGridListModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatIconModule
+  MatIconModule,
+  MatExpansionModule,
+  MdcListModule,
+  MdcIconModule,
+  MdcCheckboxModule,
+  MdcTextFieldModule,
+  MdcChipsModule,
+  MdcElevationModule,
+  MatTabsModule,
   ],
   exports: [
      MatProgressBarModule,
@@ -36,7 +45,15 @@ import {MatInputModule, MatNativeDateModule, MatDatepickerModule,
   MatGridListModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatIconModule
+  MatIconModule,
+  MatExpansionModule,
+  MdcListModule,
+  MdcIconModule,
+  MdcCheckboxModule,
+  MdcTextFieldModule,
+  MdcChipsModule,
+  MdcElevationModule,
+  MatTabsModule,
    ],
 })
 export class CustomMaterialModule { }

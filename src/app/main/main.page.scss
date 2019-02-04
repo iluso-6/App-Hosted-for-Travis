@@ -23,26 +23,40 @@ $mdc-theme-secondary: #43C4B2;
     @include mdc-chip-outline(2px, solid, $mdc-theme-secondary);
 }
 
+$headerRowBg: #314051;
+$fontColor: #fffef4;
+$aceCyan: #43C4B2;
+$rowColor:#F5F5F5;
+$selectedRowColor:#5f5d57;
 $card-bg: #4b4b4b;
-.example-container {
-    height: 400px;
-    overflow: auto;
-    background-color: $card-bg;
-}
-
 table {
     width: 100%;
     background-color: $card-bg;
 }
 
-th.mat-sort-header-sorted {
-    color: black;
+.example-element-row td {
+    border-bottom-width: 0;
 }
 
-$headerRowBg: #314051;
-$fontColor: #fffef4;
-$aceCyan: #43C4B2;
-$rowColor:#F5F5F5;
-$col-sm:40px;
-$col-md:10px;
-$col-lg:100px;
+tr.example-detail-row {
+    height: 0;
+}
+
+.example-expanded-row {
+    background: $selectedRowColor;
+}
+
+.example-detail-row {
+    background: $selectedRowColor;
+}
+
+.expandIcons {
+    padding: 8px;
+    ion-icon {
+        font-size: 30px;
+    }
+}
+
+.element-detail {
+    overflow: hidden;
+}
