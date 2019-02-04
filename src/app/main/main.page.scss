@@ -35,6 +35,10 @@ table {
     background-color: $card-bg;
 }
 
+th.mat-sort-header-sorted {
+    color: black;
+}
+
 $headerRowBg: #314051;
 $fontColor: #fffef4;
 $aceCyan: #43C4B2;

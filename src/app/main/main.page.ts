@@ -7,9 +7,10 @@ import { NavController, Platform, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { CaseModel } from '../models/CaseModel';
 import { ChartsComponent } from '../case-details/charts/charts.component';
+import { MatSort, MatTableDataSource } from '@angular/material';
 
 
-const ELEMENT_DATA: CaseModel[] = [
+const ELEMENT_DATA: any[] = [
 ];
 
 
@@ -20,6 +21,9 @@ const ELEMENT_DATA: CaseModel[] = [
 })
 
 export class MainPage implements OnInit {
+
+  @ViewChild(MatSort) sort: MatSort;
+
 
 
 constructor(private route: ActivatedRoute,
@@ -36,17 +40,19 @@ constructor(private route: ActivatedRoute,
 
 
 
+  links = [ 'Cases', 'Clients'];
+  activeLink = this.links[0];
 
 
 
+// tslint:disable-next-line:member-ordering
+displayedColumnsClients = ['ExternalKey', 'ClientsNames', 'EpisodeStatus', 'Type', 'LastSessionDate', 'CliniciansNames'];
 
-  // tslint:disable-next-line:member-ordering
-  displayedColumns = ['ExternalKey', 'EpisodeOwner',
-  'CliniciansNames', 'ClientsNames', 'EpisodeStatus',
-  'StartDate', 'LastSessionDate',
-  'Type', 'Alert', 'Description'];
+// tslint:disable-next-line:member-ordering
+ displayedColumnsCases = ['ExternalKey', 'CliniciansNames', 'EpisodeStatus', 'EpisodeOwner', 'StartDate', 'LastSessionDate'];
 
-  dataSource = ELEMENT_DATA;
+
+dataSource;
   files: any[] = null;
    filetemplate = [
     { name: 'Clininicians', icon: 'folder', id: 'CliniciansNames'},
@@ -91,6 +97,7 @@ constructor(private route: ActivatedRoute,
         console.log(result);
         loading.dismiss();
         this.dataSource = result;
+        this.dataSource.sort = this.sort;
         this.selectedEpisode = this.dataSource[0];
         this.chartsComponent.loadChartData(this.dataSource[0]);
         this.chartsComponent.setChartSize(this.all_chart_options);

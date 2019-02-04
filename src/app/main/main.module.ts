@@ -11,10 +11,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CustomMaterialModule } from '../core/material.module';
 import { ChartsComponent } from '../case-details/charts/charts.component';
 import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
+import { MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     MatTableModule,
+    MatTabsModule,
     CommonModule,
     FormsModule,
     IonicModule,
