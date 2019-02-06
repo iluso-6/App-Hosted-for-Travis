@@ -6,6 +6,7 @@ import {MatInputModule, MatNativeDateModule, MatDatepickerModule,
      MatSnackBarModule, MatDialogModule, MatIcon, MatIconBase, MatIconModule, MatTabsModule
 } from '@angular/material';
 import { MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, MdcChipsModule, MdcElevationModule } from '@angular-mdc/web';
+
 @NgModule({
   imports: [
      MatProgressBarModule,
@@ -55,5 +56,6 @@ import { MdcListModule, MdcIconModule, MdcCheckboxModule, MdcTextFieldModule, Md
   MdcElevationModule,
   MatTabsModule,
    ],
+
 })
 export class CustomMaterialModule { }

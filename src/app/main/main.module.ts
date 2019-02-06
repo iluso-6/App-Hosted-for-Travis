@@ -9,8 +9,9 @@ import {MatTableModule} from '@angular/material/table';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CustomMaterialModule } from '../core/material.module';
-import { ChartsComponent } from '../case-details/charts/charts.component';
+
 import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
+import { ChartsComponent } from '../core/shared-modules/charts/charts.component';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { DxChartModule, DxSelectBoxModule } from 'devextreme-angular';
       }
     ])
   ],
-  providers: [ {provide: ChartsComponent, useClass: ChartsComponent}],
+ // providers: [ {provide: ChartsComponent, useClass: ChartsComponent}],
   declarations: [MainPage, ChartsComponent]
 })
 export class MainPageModule {

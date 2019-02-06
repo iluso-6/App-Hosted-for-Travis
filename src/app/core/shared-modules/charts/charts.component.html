@@ -1,0 +1,55 @@
+<ion-slides class="slides_container" pager="true">
+
+
+    <ion-slide class="slide">
+        <dx-chart #chart_ors containerBackgroundColor="red" [commonPaneSettings]="commonPaneSettings" [commonSeriesSettings]="commonSeriesSettings" [commonAxisSettings]="commonAxisSettings" [dataSource]="orsData">
+
+            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="rgba(248,99,99,1)" type="stackedarea"></dxi-series>
+            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="stackedarea"></dxi-series>
+            <dxi-series valueField="PTrajectory" name="Positive Zone" color="lightgreen" type="stackedarea"></dxi-series>
+            <dxi-series valueField="OrsScore" name="ORS Score" color="#314051" type="line" width="3" dashStyle="longDash">
+                <dxo-label [visible]="true" text="ORS Score"></dxo-label>
+            </dxi-series>
+            <dxi-value-axis max="45" tickInterval="10">
+                <dxi-constant-line [value]="ClinicalCutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
+                    <dxo-label [visible]="!chart_sm" text="ORS CutOff">
+                    </dxo-label>
+                </dxi-constant-line>
+            </dxi-value-axis>
+            <dxo-argument-axis [valueMarginsEnabled]="false">
+                <dxo-label [visible]="false">
+                </dxo-label>
+            </dxo-argument-axis>
+            <dxo-export [enabled]="false"></dxo-export>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" [visible]="!chart_sm">
+            </dxo-legend>
+        </dx-chart>
+
+    </ion-slide>
+    <ion-slide class="slide">
+        <dx-chart #chart_srs containerBackgroundColor="red" [commonPaneSettings]="commonPaneSettings" [commonSeriesSettings]="commonSeriesSettings" [commonAxisSettings]="commonAxisSettings" [dataSource]="orsData">
+
+            <dxi-series valueField="NTrajectory" name="Negative Treatment" color="rgba(248,99,99,1)" type="stackedarea"></dxi-series>
+            <dxi-series valueField="Trajectory" name="Treatment Zone" color="#FCE959" type="stackedarea"></dxi-series>
+            <dxi-series valueField="PTrajectory" name="Positive Zone" color="lightgreen" type="stackedarea"></dxi-series>
+            <dxi-series valueField="OrsScore" name="ORS Score" color="#314051" type="line" width="3" dashStyle="longDash">
+                <dxo-label [visible]="true" text="ORS Score"></dxo-label>
+            </dxi-series>
+            <dxi-value-axis max="45" tickInterval="10">
+                <dxi-constant-line [value]="ClinicalCutOff" name="ORS CutOff" dashStyle="dash" color="grey" width="1">
+                    <dxo-label [visible]="!chart_sm" text="ORS CutOff">
+                    </dxo-label>
+                </dxi-constant-line>
+            </dxi-value-axis>
+            <dxo-argument-axis [valueMarginsEnabled]="false">
+                <dxo-label [visible]="false">
+                </dxo-label>
+            </dxo-argument-axis>
+            <dxo-export [enabled]="false"></dxo-export>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" [visible]="!chart_sm">
+            </dxo-legend>
+        </dx-chart>
+
+    </ion-slide>
+
+</ion-slides>

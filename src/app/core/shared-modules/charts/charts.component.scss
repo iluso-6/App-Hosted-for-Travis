@@ -11,10 +11,8 @@ ion-slides {
         display: block;
     }
     dx-chart {
-        border: 1px solid rgb(211, 211, 211);
         overflow: hidden;
-        margin: 0 auto;
-        display: block;
+        margin-bottom: 20px;
     }
     dx-range-selector {
         border: 11px solid $headerRowBglight;
@@ -28,21 +26,3 @@ ion-slides {
         min-height: 100%;
     }
 }
-
-
-/*
-// iPad
-@media (min-width: 820px) {
-    ion-slides {
-        //  background-color: yellow;
-    }
-}
-
-// mobile phones 
-@media (min-width: 240px) and (max-width: 768px) {
-    ion-slides {
-        //   background-color: rgb(255, 0, 149);
-    }
-}
-
-*/

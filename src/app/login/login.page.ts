@@ -12,8 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginPage implements OnInit {
   // User object for testing purposes
   User = {
-    username: 'shaydebarra@gmail.com',
-    password: 'Cuan8852'
+    username: '',
+    password: ''
   };
 
   constructor(
@@ -63,6 +63,6 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('HomePage');
+    console.log('LoginPage');
   }
 }

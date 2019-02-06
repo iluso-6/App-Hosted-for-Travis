@@ -1,12 +1,11 @@
 import {  Component, OnInit, ViewChild } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpRequestService } from '../service/http-request.service';
 import { environment } from '../../environments/environment';
 import { EpisodeModel } from '../models/EpisodeModel';
 import { NavController, Platform, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { CaseModel } from '../models/CaseModel';
-import { ChartsComponent } from '../case-details/charts/charts.component';
+import { ChartsComponent } from '../core/shared-modules/charts/charts.component';
 import { MatSort } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -30,7 +29,14 @@ const ELEMENT_DATA: any[] = [
 
 export class MainPage implements OnInit {
 
+
   @ViewChild(MatSort) sort: MatSort;
+  chartWidth: number;
+  chartHeigth: number;
+  tableHeight: string;
+  isLandscape: boolean;
+  cardHeight: string;
+  all_chart_options: { width: number; height: number; };
 
 
 
@@ -39,10 +45,18 @@ constructor(private route: ActivatedRoute,
    private httpRequestService: HttpRequestService,
    public loadingController: LoadingController) {
     this.httpRequestService.getStoredToken();
-
+    platform.ready().then(() => {
+      const self = this;
+      console.log('platform.ready()');
+      window.addEventListener('orientationchange', function() { self.setPlatFormDimensions(); });
+      // call this to init values
+      self.setPlatFormDimensions();
+     });
 }
 
   @ViewChild(ChartsComponent) chartsComponent: ChartsComponent;
+
+
   episodes: EpisodeModel;
   current_user: string;
 
@@ -66,25 +80,7 @@ displayedColumnsClients = ['ExternalKey', 'ClientsNames', 'EpisodeStatus', 'Type
 
 
 dataSource;
-  files: any[] = null;
-   filetemplate = [
-    { name: 'Clininicians', icon: 'folder', id: 'CliniciansNames'},
-    { name: 'Owner', icon: 'folder', id: 'EpisodeOwner'},
-    { name: 'Clients', icon: 'insert_drive_file', id: 'ClientsNames'},
-    { name: 'Clients', icon: 'insert_drive_file', id: 'StartDate'},
-  ];
-  lookupVal;
 
-  folders = [
-    { name: 'Owner', icon: 'folder', addDate: 'Jan 9, 2015', id: 'EpisodeOwner', index: 0},
-    { name: 'Clininicians', icon: 'folder', addDate: 'Jan 17, 2015', id: 'CliniciansNames', index: 1 },
-    { name: 'Clients', icon: 'folder', addDate: 'Jan 28, 2015', id: 'ClientsNames', index: 2},
-    { name: 'All Files', icon: 'folder', addDate: 'Jan 28, 2015', id: 'ExternalKey', index: 3},
-  ];
-  all_chart_options = {
-    width:   Math.round(screen.width / 1.0),
-    height:  Math.round(screen.height / 3)
-  };
 
   selectedEpisode: CaseModel;
 
@@ -100,13 +96,32 @@ dataSource;
   ngOnInit() {
 
   }
-  _selectionChange = (item) => {
 
-    const index = item.index;
-   this.files = this.dataSource;
-  this.lookupVal = this.filetemplate[index];
+  setPlatFormDimensions() {
+    const toolbarHeight = 50;
+    const tableMargins = 110;
+    const chartBottomMargin = 20;
+    console.log('orientationchange ' + screen.orientation.type); // e.g. portrait
+    if (screen.orientation.type === 'landscape-primary') {
+      this.all_chart_options = {
+        width:   screen.width ,
+        height:  (screen.availHeight - toolbarHeight - chartBottomMargin)
+      };
+      this.isLandscape = true;
+    } else if (screen.orientation.type === 'portrait-primary') {
+      const rawCardHeight = Math.round(screen.availHeight / 2);
+      this.cardHeight =  rawCardHeight + 'px';
+      this.tableHeight = rawCardHeight - tableMargins + 'px';
+      this.all_chart_options = {
+        width:   screen.width,
+        height:  (screen.availHeight - rawCardHeight) - toolbarHeight - chartBottomMargin
+      };
+     this.isLandscape = false;
+
+    }
+    this.chartsComponent.setChartSize(this.all_chart_options);
+
   }
-
   async getEpisodes() {
 
     const loading = await this.loadingController.create({
@@ -162,6 +177,7 @@ dataSource;
       }
   }
   }
+
 
 goToCaseDetailById(case_ExternalKey) {
   console.log('goToCaseDetail ' + case_ExternalKey );

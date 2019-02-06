@@ -46,7 +46,7 @@ export class ChartsComponent implements OnInit {
 panel_opened = true;
 
 commonPaneSettings =  {
-  backgroundColor: '#FFFcdc',
+  backgroundColor: '#fffeff',
   border: {
     bottom: true,
     color: '#d3d3d3',
